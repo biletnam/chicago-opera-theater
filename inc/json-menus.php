@@ -11,13 +11,13 @@
 function get_json_header_menu()
 {
     $locations = get_nav_menu_locations();
-    echo json_encode(get_json_menu($locations['header-menu']));
+    echo json_encode(get_json_menu($locations['header-menu']), JSON_HEX_APOS);
 }
 
 function get_json_footer_menu()
 {
     $locations = get_nav_menu_locations();
-    echo json_encode(get_json_menu($locations['footer-menu']));
+    echo json_encode(get_json_menu($locations['footer-menu']), JSON_HEX_APOS);
 }
 
 function get_json_menu($location)
