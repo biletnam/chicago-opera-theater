@@ -43,11 +43,6 @@ function chicago_opera_theater_setup()
      */
     add_theme_support('post-thumbnails');
 
-    // This theme uses wp_nav_menu() in one location.
-    register_nav_menus(array(
-        'menu-1' => esc_html__('Primary', 'chicago-opera-theater'),
-    ));
-
     /*
      * Switch default core markup for search form, comment form, and comments
      * to output valid HTML5.
@@ -86,30 +81,6 @@ function chicago_opera_theater_content_width()
 add_action('after_setup_theme', 'chicago_opera_theater_content_width', 0);
 
 /**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function chicago_opera_theater_widgets_init()
-{
-    register_sidebar(array(
-        'name'          => esc_html__('Sidebar', 'chicago-opera-theater'),
-        'id'            => 'sidebar-1',
-        'description'   => esc_html__('Add widgets here.', 'chicago-opera-theater'),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
-    ));
-}
-add_action('widgets_init', 'chicago_opera_theater_widgets_init');
-
-/**
- * Implement the Custom Header feature.
- */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/inc/template-tags.php';
@@ -118,3 +89,8 @@ require get_template_directory() . '/inc/template-tags.php';
  * Custom functions that act independently of the theme templates.
  */
 require get_template_directory() . '/inc/extras.php';
+
+/**
+ * Custom menu functions for this theme.
+ */
+require get_template_directory() . '/inc/json-menus.php';

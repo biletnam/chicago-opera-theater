@@ -2,7 +2,7 @@
 /**
  * The template for displaying the footer
  *
- * Contains the closing of the #content div and all content after.
+ * Contains all content after the main content.
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
@@ -10,8 +10,6 @@
  */
 
 ?>
-
-	</div><!-- #content -->
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="site-info">
