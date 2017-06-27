@@ -4,6 +4,9 @@ const webpack = require('webpack')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
+  stats: {
+    errorDetails: true
+  },
   entry: './javascript/src/index.js',
   output: {
     filename: 'script.js',
@@ -64,6 +67,7 @@ module.exports = {
     alias: {
       '@': resolve(__dirname, 'javascript', 'src'),
       '~Css': resolve(__dirname, 'css'),
+      'variables': resolve(__dirname, 'css', '_variables.scss'),
       '~Vue': resolve(__dirname, 'javascript/src/components'),
       '~Mounters': resolve(__dirname, 'javascript/src/mounters'),
     },
