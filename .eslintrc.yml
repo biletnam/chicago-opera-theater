@@ -1,0 +1,16 @@
+extends:
+  - eslint:recommended
+  - vue
+  - airbnb-base
+plugins:
+  - import
+  - babel
+  - html
+rules:
+  import/no-unresolved: 0
+  no-plusplus: 0
+  func-names: 0
+  no-multi-str: 0
+  import/extensions: 0
+env:
+  browser: true

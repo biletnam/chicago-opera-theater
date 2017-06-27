@@ -16,10 +16,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env']
-          }
+          loader: 'babel-loader'
         }
       },
       {
@@ -29,8 +26,23 @@ module.exports = {
           use: [
             { loader: 'css-loader', options: { minimize: true } },
             { loader: 'sass-loader', options: { sourceMap: true } },
+            { loader: 'postcss-loader', options: {} },
           ],
         }),
+      },
+      {
+        test: /.vue$/,
+        loader: 'vue-loader',
+        options: {
+          extractCSS: true,
+          loaders: {
+            scss: 'vue-style-loader!css-loader!sass-loader!postcss-loader',
+            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax!postcss-loader',
+          },
+          postLoaders: {
+            html: 'babel-loader'
+          }
+        }
       }
     ],
   },
@@ -48,9 +60,12 @@ module.exports = {
     }),
   ],
   resolve: {
+    extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve(__dirname, 'javascript', 'src'),
       '~Css': resolve(__dirname, 'css'),
+      '~Vue': resolve(__dirname, 'javascript/src/components'),
+      '~Mounters': resolve(__dirname, 'javascript/src/mounters'),
     },
   },
 };
