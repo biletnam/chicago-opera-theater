@@ -8,4 +8,8 @@ License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: chicago-opera-theater
 */
-@import 'bulma/bulma';
+@import "~bulma/sass/utilities/_all";
+
+// Variables here
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
