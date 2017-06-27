@@ -4,5 +4,20 @@
   "main": "javascript/src/index.js",
   "repository": "https://github.com/bartboy011/chicago-opera-theater.git",
   "author": "Joshua Bartlett <joshuabartlett@gmail.com>",
-  "license": "NONE"
+  "license": "NONE",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.0",
+    "babel-preset-env": "^1.5.2",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.0.0"
+  },
+  "dependencies": {
+    "bulma": "^0.4.2"
+  }
 }
