@@ -1,0 +1,8 @@
+{
+  "name": "chicago-opera-theater",
+  "version": "1.0.0",
+  "main": "javascript/src/index.js",
+  "repository": "https://github.com/bartboy011/chicago-opera-theater.git",
+  "author": "Joshua Bartlett <joshuabartlett@gmail.com>",
+  "license": "NONE"
+}
