@@ -8,8 +8,9 @@ License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: chicago-opera-theater
 */
-@import "~bulma/sass/utilities/_all";
-
-// Variables here
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
+@import url( 'https://fonts.googleapis.com/css?family=Heebo:800|Open+Sans:300,400,400i,700');
+@import '~bulma/sass/utilities/_all';
+@import 'variables';
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
+@import 'typography';
