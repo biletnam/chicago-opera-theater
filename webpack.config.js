@@ -1,5 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const { join, resolve } = require('path')
+const webpack = require('webpack')
+var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
   entry: './javascript/src/index.js',
@@ -33,7 +35,17 @@ module.exports = {
     ],
   },
   plugins: [
-    new ExtractTextPlugin('../style.css')
+    new ExtractTextPlugin('../style.css'),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      },
+    }),
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: {
+        safe: true
+      }
+    }),
   ],
   resolve: {
     alias: {
