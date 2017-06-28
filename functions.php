@@ -99,3 +99,13 @@ require get_template_directory() . '/inc/json-menus.php';
  * Custom header functions for this theme.
  */
 require get_template_directory() . '/inc/header-acf-fields.php';
+
+/**
+ * Custom function to return child pages
+ */
+require get_template_directory() . '/inc/fellow-child-pages.php';
+
+/**
+ * Custom page ACF serializers
+ */
+require get_template_directory() . '/inc/page-acf-fields.php';

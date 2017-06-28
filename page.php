@@ -14,19 +14,14 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
-
-			<?php
-            while (have_posts()) : the_post();
-
-                get_template_part('template-parts/content', 'page');
-
-            endwhile; // End of the loop.
-            ?>
-
-		</main><!-- #main -->
-	</div><!-- #primary -->
+<main id="main" class="section has-margin-top-lg has-margin-bottom-lg" role="main">
+	<div class="container">
+		<div class="columns">
+			<article class="column is-8"></article>
+			<?php get_template_part('template-parts/links-sidebar'); ?>
+		</div>
+	</div>
+</main><!-- #main -->
 
 <?php
 get_footer();
