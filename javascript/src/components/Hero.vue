@@ -65,12 +65,14 @@ export default {
 
     .hero-footer {
         position: absolute;
-        left: 20px;
+        left: 0;
         bottom: 20px;
-        width: calc(100% - 20px);
+        width: 100%;
         text-align: center;
         @media(min-width: 769px) {
             text-align: left;
+            left: 20px;
+            width: calc(100% - 20px);
         }
     }
 }
