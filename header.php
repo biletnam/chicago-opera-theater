@@ -20,7 +20,5 @@
 </head>
 
 <body>
-<div id="page" class="site">
-	<nav id="navigation" data='{"links": <?php get_json_header_menu() ?>, "image": "<?php echo get_template_directory_uri() ?>/static/assets/cot-logo.png"}'></nav><!-- #site-navigation -->
-	<header id="masthead" class="site-header" role="banner">
-	</header><!-- #masthead -->
+<nav id="navigation" data='{"links": <?php get_json_header_menu() ?>, "image": "<?php echo get_template_directory_uri() ?>/static/assets/cot-logo.png"}'></nav>
+<header id="masthead" data='{"images": <?php get_acf_header_images() ?>, "titles": <?php get_acf_header_titles() ?>}'></header>

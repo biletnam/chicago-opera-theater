@@ -94,3 +94,5 @@ require get_template_directory() . '/inc/extras.php';
  * Custom menu functions for this theme.
  */
 require get_template_directory() . '/inc/json-menus.php';
+
+require get_template_directory() . '/inc/header-acf-fields.php';
