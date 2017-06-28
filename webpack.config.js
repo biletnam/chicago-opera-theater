@@ -1,16 +1,16 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const { join, resolve } = require('path')
-const webpack = require('webpack')
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const { resolve } = require('path');
+const webpack = require('webpack');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   stats: {
-    errorDetails: true
+    errorDetails: true,
   },
   entry: './javascript/src/index.js',
   output: {
     filename: 'script.js',
-    path: resolve(__dirname, 'javascript')
+    path: resolve(__dirname, 'javascript'),
   },
   watch: true,
   module: {
@@ -19,8 +19,8 @@ module.exports = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
-          loader: 'babel-loader'
-        }
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.(scss|sass|css)$/i,
@@ -43,23 +43,23 @@ module.exports = {
             sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax!postcss-loader',
           },
           postLoaders: {
-            html: 'babel-loader'
-          }
-        }
-      }
+            html: 'babel-loader',
+          },
+        },
+      },
     ],
   },
   plugins: [
     new ExtractTextPlugin('../style.css'),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        warnings: false
+        warnings: false,
       },
     }),
     new OptimizeCSSPlugin({
       cssProcessorOptions: {
-        safe: true
-      }
+        safe: true,
+      },
     }),
   ],
   resolve: {
@@ -67,7 +67,7 @@ module.exports = {
     alias: {
       '@': resolve(__dirname, 'javascript', 'src'),
       '~Css': resolve(__dirname, 'css'),
-      'variables': resolve(__dirname, 'css', '_variables.scss'),
+      variables: resolve(__dirname, 'css', '_variables.scss'),
       '~Vue': resolve(__dirname, 'javascript/src/components'),
       '~Mounters': resolve(__dirname, 'javascript/src/mounters'),
     },
