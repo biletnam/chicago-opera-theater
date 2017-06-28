@@ -9,8 +9,18 @@ License URI: LICENSE
 Text Domain: chicago-opera-theater
 */
 @import url( 'https://fonts.googleapis.com/css?family=Heebo:800|Open+Sans:300,400,400i,700');
-@import '~bulma/sass/utilities/_all';
+@import '~bulma/sass/utilities/initial-variables';
 @import 'variables';
 @import '~bulma';
 @import '~buefy/src/scss/buefy';
 @import 'typography';
+
+html {
+  width    : 100%;
+  max-width: 100%;
+}
+
+body {
+  width    : 100%;
+  max-width: 100%;
+}
