@@ -13,14 +13,5 @@ Text Domain: chicago-opera-theater
 @import 'variables';
 @import '~bulma';
 @import '~buefy/src/scss/buefy';
+@import 'overrides';
 @import 'typography';
-
-html {
-  width    : 100%;
-  max-width: 100%;
-}
-
-body {
-  width    : 100%;
-  max-width: 100%;
-}

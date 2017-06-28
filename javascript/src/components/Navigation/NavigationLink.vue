@@ -45,25 +45,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.box.is-dropdown {
-    z-index: 1000;
-    min-width: 200px;
-}
-
-.nav-menu {
-    .dropdown {
-        .box.is-bottom-right {
-            left: -20px;
-        }
-
-        .box.is-bottom-left {
-            right: -20px;
-        }
-    }
-}
-</style>
-
 <style lang="scss" scoped>@import '~variables';
 a.link-title {
     color: $primary-color;
