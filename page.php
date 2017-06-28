@@ -14,10 +14,14 @@
 
 get_header(); ?>
 
-<main id="main" class="section has-margin-top-lg has-margin-bottom-lg" role="main">
+<main id="main" class="section" role="main">
 	<div class="container">
 		<div class="columns">
-			<article class="column is-8"></article>
+			<?php while (have_posts()) : the_post(); ?>
+				<article class="column is-8">
+					<?php the_content(); ?>
+				</article>
+			<?php endwhile ?>
 			<?php get_template_part('template-parts/links-sidebar'); ?>
 		</div>
 	</div>
