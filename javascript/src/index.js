@@ -4,5 +4,6 @@ import '~Css/style.scss';
 
 require('~Mounters/navigation');
 require('~Mounters/hero');
+require('~Mounters/footing');
 
 Vue.use(Buefy);
