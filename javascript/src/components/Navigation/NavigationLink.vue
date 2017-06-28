@@ -1,5 +1,5 @@
 <template>
-<b-dropdown position="is-bottom-right" :class="{'nav-item': true, 'is-active': active}">
+<b-dropdown :position="position" :class="{'nav-item': true, 'is-active': active}">
   <a class="link-title" slot="trigger">{{link.title}}</a>
   <template v-for="child in link.children">
   <b-dropdown-option :key="child.id" has-link>
@@ -17,11 +17,17 @@ export default {
     link: {
       type: Object,
       required: true,
-    }
+    },
+    index: {}
   },
   data() {
+    let position = 'is-bottom-right';
+    if (this.index > 2) {
+      position = 'is-bottom-left';
+    }
     return {
       active: false,
+      position
     }
   },
   methods: {
@@ -38,6 +44,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.box.is-dropdown {
+    z-index: 1000;
+    min-width: 200px;
+}
+</style>
 
 <style lang="scss" scoped>@import '~variables';
 a.link-title {

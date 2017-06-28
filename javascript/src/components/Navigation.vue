@@ -11,7 +11,7 @@
   <span></span>
   </span>
   <div :class="{'nav-right nav-menu': true, 'is-active': mobileVisible}" style="overflow: visible">
-    <navigation-link v-for="link in links" :link="link" :key="link.id"></navigation-link>
+    <navigation-link v-for="(link, index) in links" :link="link" :index="index" :key="link.id"></navigation-link>
   </div>
 </nav>
 </template>
