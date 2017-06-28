@@ -50,6 +50,18 @@ export default {
     z-index: 1000;
     min-width: 200px;
 }
+
+.nav-menu {
+    .dropdown {
+        .box.is-bottom-right {
+            left: -20px;
+        }
+
+        .box.is-bottom-left {
+            right: -20px;
+        }
+    }
+}
 </style>
 
 <style lang="scss" scoped>@import '~variables';
@@ -81,45 +93,83 @@ a.link-title {
         }
     }
     @media(min-width: 769px) {
-        &.is-active {
-            &:after,
+        &:after,
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border: 0 solid transparent;
+        }
+        &:not(:last-of-type):not(:first-of-type) {
+            &:after {
+                right: -20px;
+                border-bottom-width: 52px;
+                border-top-width: 0;
+                border-left: 20px solid transparent;
+            }
             &:before {
-                content: '';
-                position: absolute;
-                top: 0;
-                width: 0;
-                height: 0;
-                border: 0 solid transparent;
+                left: -20px;
+                border-top-width: 52px;
+                border-bottom-width: 0;
+                border-right: 20px solid transparent;
+            }
+        }
+        &:last-of-type {
+            &:before {
+                left: -20px;
+                border-top-width: 52px;
+                border-bottom-width: 0;
+                border-right: 20px solid transparent;
+            }
+        }
+        &:first-of-type {
+            &:after {
+                right: -20px;
+                border-bottom-width: 52px;
+                border-top-width: 0;
+                border-left: 20px solid transparent;
             }
         }
         &.is-active:not(:last-of-type):not(:first-of-type) {
             &:after {
-                right: -20px;
-                border-bottom-width: 52px;
-                border-top-width: 0;
-                border-left: 20px solid $primary-color;
+                border-left-color: $primary-color;
             }
             &:before {
-                left: -20px;
-                border-top-width: 52px;
-                border-bottom-width: 0;
-                border-right: 20px solid $primary-color;
+                border-right-color: $primary-color;
             }
         }
         &.is-active:last-of-type {
             &:before {
-                left: -20px;
-                border-top-width: 52px;
-                border-bottom-width: 0;
-                border-right: 20px solid $primary-color;
+                border-right-color: $primary-color;
             }
         }
         &.is-active:first-of-type {
             &:after {
-                right: -20px;
-                border-bottom-width: 52px;
-                border-top-width: 0;
-                border-left: 20px solid $primary-color;
+                border-left-color: $primary-color;
+            }
+        }
+        $amount: 0.5;
+        &:hover:not(.is-active) {
+            background-color: transparentize($primary-color, $amount);
+        }
+        &:hover:not(.is-active):not(:last-of-type):not(:first-of-type) {
+            &:after {
+                border-left-color: transparentize($primary-color, $amount);
+            }
+            &:before {
+                border-right-color: transparentize($primary-color, $amount);
+            }
+        }
+        &:hover:not(.is-active):last-of-type {
+            &:before {
+                border-right-color: transparentize($primary-color, $amount);
+            }
+        }
+        &:hover:not(.is-active):first-of-type {
+            &:after {
+                border-left-color: transparentize($primary-color, $amount);
             }
         }
     }
