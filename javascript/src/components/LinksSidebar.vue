@@ -1,11 +1,15 @@
 <template>
 <aside id="links-sidebar" class="column is-4">
-  <ul>
-    <li>
-      <h3>{{title}}</h3>
-    </li>
-    <sidebar-link v-for="link in links" :link="link" :key="link.title"></sidebar-link>
-  </ul>
+  <div class="card">
+    <header class="card-header">
+      <h3 class="card-header-title">
+        {{title}}
+      </h3>
+    </header>
+    <ul>
+      <sidebar-link v-for="link in links" :link="link" :key="link.title"></sidebar-link>
+    </ul>
+  </div>
 </aside>
 </template>
 
@@ -32,18 +36,24 @@ export default {
 <style lang="scss" scoped>@import '~variables';
 
 #links-sidebar {
-    border: 2px solid $primary-color;
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 0;
-    li {
-        padding: 0;
-    }
-    li:first-of-type {
-        padding: 0.25em 0.75em 1em;
-    }
-    li:not(:last-of-type) {
-        border-bottom: 1px solid transparentize($primary-color, .5);
+    & > .card {
+        border: 2px solid $primary-color;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        .card-header {
+            box-shadow: none;
+            border-bottom: 1px solid transparentize($primary-color, .5);
+        }
+        li {
+            padding: 0;
+        }
+        li:not(:last-of-type) {
+            border-bottom: 1px solid transparentize($primary-color, .5);
+        }
     }
 }
 </style>

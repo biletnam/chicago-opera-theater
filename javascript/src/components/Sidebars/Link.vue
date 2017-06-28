@@ -1,16 +1,16 @@
 <template>
-<li class="has-text-centered" :class="{'is-active': active}">
+<div>
   <a v-if="!active" :href="link.url">
-    {{link.title}}
-    <b-icon
-        pack="fa"
-        icon="arrow-right">
-    </b-icon>
-  </a>
+      {{link.title}}
+      <b-icon
+          pack="fa"
+          icon="arrow-right">
+      </b-icon>
+    </a>
   <p v-else>
     {{link.title}}
   </p>
-</li>
+</div>
 </template>
 
 <script>
@@ -26,9 +26,6 @@ export default {
     return {
       active: window.location.href === this.link.url
     }
-  },
-  components: {
-
   }
 }
 </script>
@@ -59,7 +56,6 @@ a {
 }
 
 li.is-active {
-    background-color: transparentize($primary-color, .7);
     p {
         color: $primary-color;
     }
