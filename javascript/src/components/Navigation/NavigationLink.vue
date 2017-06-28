@@ -82,53 +82,54 @@ a.link-title {
             width: 0;
             height: 0;
             border: 0 solid transparent;
+            transition: all 0.2s;
         }
         &:not(:last-of-type):not(:first-of-type) {
             &:after {
                 right: -20px;
-                border-bottom-width: 52px;
+                border-bottom-width: $navigation-height;
                 border-top-width: 0;
-                border-left: 20px solid transparent;
+                border-left: 0 solid transparent;
             }
             &:before {
                 left: -20px;
-                border-top-width: 52px;
+                border-top-width: $navigation-height;
                 border-bottom-width: 0;
-                border-right: 20px solid transparent;
+                border-right: 0 solid transparent;
             }
         }
         &:last-of-type {
             &:before {
                 left: -20px;
-                border-top-width: 52px;
+                border-top-width: $navigation-height;
                 border-bottom-width: 0;
-                border-right: 20px solid transparent;
+                border-right: 0 solid transparent;
             }
         }
         &:first-of-type {
             &:after {
                 right: -20px;
-                border-bottom-width: 52px;
+                border-bottom-width: $navigation-height;
                 border-top-width: 0;
-                border-left: 20px solid transparent;
+                border-left: 0 solid transparent;
             }
         }
         &.is-active:not(:last-of-type):not(:first-of-type) {
             &:after {
-                border-left-color: $primary-color;
+                border-left: 20px solid $primary-color;
             }
             &:before {
-                border-right-color: $primary-color;
+                border-right: 20px solid $primary-color;
             }
         }
         &.is-active:last-of-type {
             &:before {
-                border-right-color: $primary-color;
+                border-right: 20px solid $primary-color;
             }
         }
         &.is-active:first-of-type {
             &:after {
-                border-left-color: $primary-color;
+                border-left: 20px solid $primary-color;
             }
         }
         $amount: 0.5;
@@ -143,20 +144,20 @@ a.link-title {
         }
         &:hover:not(.is-active):not(:last-of-type):not(:first-of-type) {
             &:after {
-                border-left-color: transparentize($primary-color, $amount);
+                border-left: 20px solid transparentize($primary-color, $amount);
             }
             &:before {
-                border-right-color: transparentize($primary-color, $amount);
+                border-right: 20px solid transparentize($primary-color, $amount);
             }
         }
         &:hover:not(.is-active):last-of-type {
             &:before {
-                border-right-color: transparentize($primary-color, $amount);
+                border-right: 20px solid transparentize($primary-color, $amount);
             }
         }
         &:hover:not(.is-active):first-of-type {
             &:after {
-                border-left-color: transparentize($primary-color, $amount);
+                border-left: 20px solid transparentize($primary-color, $amount);
             }
         }
     }

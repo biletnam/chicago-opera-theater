@@ -45,6 +45,7 @@ export default {
 <style lang="scss" scoped>@import '~variables';
 #navigation {
     background: $navigation-background;
+    height: $navigation-height;
 
     .nav-toggle {
         span {
