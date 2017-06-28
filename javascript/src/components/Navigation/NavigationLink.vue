@@ -132,6 +132,12 @@ a.link-title {
             }
         }
         $amount: 0.5;
+        &:hover {
+            cursor: pointer;
+            a.link-title {
+                color: white;
+            }
+        }
         &:hover:not(.is-active) {
             background-color: transparentize($primary-color, $amount);
         }
