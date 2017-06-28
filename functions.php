@@ -109,3 +109,8 @@ require get_template_directory() . '/inc/fellow-child-pages.php';
  * Custom page ACF serializers
  */
 require get_template_directory() . '/inc/page-acf-fields.php';
+
+/**
+ * Hide editor on home page
+ */
+require get_template_directory() . '/inc/hide-content-editor-home.php';
