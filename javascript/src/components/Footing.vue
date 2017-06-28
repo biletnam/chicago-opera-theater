@@ -37,10 +37,10 @@
     </div>
   </div>
   <div class="container is-fluid">
-    <p class="add-margin-top-lg">
+    <p class="has-margin-top-lg">
       70 E. Lake Street Suite 415 • Chicago, IL 60601
     </p>
-    <p class="add-margin-top-sm">
+    <p class="has-margin-top-sm">
       Box Office: 312.704.8414 • Administrative: 312.704.8420 • E-Mail: info@cot.org
     </p>
   </div>
