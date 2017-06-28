@@ -4,6 +4,7 @@ import '~Css/style.scss';
 
 require('~Mounters/navigation');
 require('~Mounters/hero');
+require('~Mounters/headerCarousel');
 require('~Mounters/footing');
 require('~Mounters/linksSidebar');
 require('~Mounters/eventsSidebar');

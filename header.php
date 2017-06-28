@@ -22,4 +22,8 @@
 
 <body>
 <nav id="navigation" data='{"links": <?php get_json_header_menu() ?>, "image": "<?php echo get_template_directory_uri() ?>/static/assets/cot-logo.png"}'></nav>
-<header id="masthead" data='{"images": <?php get_acf_header_images() ?>, "titles": <?php get_acf_header_titles() ?>}'></header>
+<?php if (is_front_page()) : ?>
+  <header id="header-carousel" data='{"panels": <?php get_acf_header_carousel() ?>}'></header>
+<?php else: ?>
+  <header id="masthead" data='{"images": <?php get_acf_header_images() ?>, "titles": <?php get_acf_header_titles() ?>}'></header>
+<?php endif ?>
