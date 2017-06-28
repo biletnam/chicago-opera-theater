@@ -86,11 +86,6 @@ add_action('after_setup_theme', 'chicago_opera_theater_content_width', 0);
 require get_template_directory() . '/inc/template-tags.php';
 
 /**
- * Custom functions that act independently of the theme templates.
- */
-require get_template_directory() . '/inc/extras.php';
-
-/**
  * Custom menu functions for this theme.
  */
 require get_template_directory() . '/inc/json-menus.php';
