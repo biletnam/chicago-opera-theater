@@ -6,5 +6,6 @@ require('~Mounters/navigation');
 require('~Mounters/hero');
 require('~Mounters/footing');
 require('~Mounters/linksSidebar');
+require('~Mounters/eventsSidebar');
 
 Vue.use(Buefy);
