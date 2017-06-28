@@ -7,7 +7,9 @@
       </h3>
     </header>
     <ul>
-      <sidebar-link v-for="link in links" :link="link" :key="link.title"></sidebar-link>
+      <li v-for="link in links" class="has-text-centered" :class="{'is-active': isActive(link.url)}">
+        <sidebar-link :link="link" :key="link.title"></sidebar-link>
+      </li>
     </ul>
   </div>
 </aside>
@@ -29,6 +31,11 @@ export default {
   },
   components: {
     SidebarLink
+  },
+  methods: {
+    isActive(url) {
+      return window.location.href === url
+    }
   }
 }
 </script>
@@ -53,6 +60,9 @@ export default {
         }
         li:not(:last-of-type) {
             border-bottom: 1px solid transparentize($primary-color, .5);
+        }
+        li.is-active {
+            background-color: transparentize($primary-color, .7);
         }
     }
 }
