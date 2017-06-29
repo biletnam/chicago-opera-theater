@@ -1,6 +1,6 @@
 <template>
 <div>
-  <a v-if="!active" :href="link.url">
+  <a v-if="!active" :href="link.url" class="has-arrow-icon">
       {{link.title}}
       <b-icon
           pack="fa"
@@ -31,28 +31,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>@import '~variables';
-a,
 p {
     font-weight: 600;
     padding: 0.75em;
     display: block;
-}
-
-a {
-    margin-left: calc(10px + 1.5rem);
-    transition: margin-left 0.3s;
-    .icon {
-        margin-left: 10px;
-        transition: opacity 0.3s;
-        opacity: 0;
-    }
-    &:hover {
-        color: $primary-color;
-        margin-left: 0;
-        .icon {
-            opacity: 1;
-        }
-    }
 }
 
 li.is-active {

@@ -42,7 +42,4 @@ export default {
 li {
     padding: 0.25em;
 }
-.card-footer-item {
-    padding: 0 0.75em;
-}
 </style>
