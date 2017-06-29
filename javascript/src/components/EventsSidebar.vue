@@ -32,12 +32,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>@import '~variables';
-
-#events-sidebar {
-    & > .card {
-        border: 2px solid $primary-color;
-    }
-}
-</style>

@@ -47,7 +47,6 @@ export default {
     padding-right: 0;
     padding-bottom: 0;
     & > .card {
-        border: 2px solid $primary-color;
         padding-left: 0;
         padding-right: 0;
         padding-bottom: 0;
