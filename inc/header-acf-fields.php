@@ -28,6 +28,14 @@ function get_acf_header_images()
     return $obj;
 }
 
+function get_acf_header_carousel()
+{
+    global $post;
+    $carousel = get_field('header_carousel', $post->ID);
+
+    echo json_encode($carousel, JSON_HEX_APOS);
+}
+
 function get_acf_header_text_color()
 {
     global $wp_query;
