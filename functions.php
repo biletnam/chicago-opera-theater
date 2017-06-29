@@ -68,6 +68,12 @@ endif;
 add_action('after_setup_theme', 'chicago_opera_theater_setup');
 
 /**
+ * Turn off TablePress hard-coded css
+ */
+
+add_filter('tablepress_use_default_css', '__return_false');
+
+/**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
  * Priority 0 to make it available to lower priority callbacks.
@@ -114,3 +120,8 @@ require get_template_directory() . '/inc/hide-content-editor-home.php';
  * Add shortcodes
  */
 require get_template_directory() . '/inc/shortcodes.php';
+
+/**
+ * Stop hardcoding image sizes
+ */
+require get_template_directory() . '/inc/remove-image-hardcodes.php';
