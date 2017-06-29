@@ -8,5 +8,6 @@ require('~Mounters/headerCarousel');
 require('~Mounters/footing');
 require('~Mounters/linksSidebar');
 require('~Mounters/eventsSidebar');
+require('~Mounters/showSidebar');
 
 Vue.use(Buefy);
