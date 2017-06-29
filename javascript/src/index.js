@@ -9,5 +9,6 @@ require('~Mounters/footing');
 require('~Mounters/linksSidebar');
 require('~Mounters/eventsSidebar');
 require('~Mounters/showSidebar');
+require('~Mounters/showContent');
 
 Vue.use(Buefy);
