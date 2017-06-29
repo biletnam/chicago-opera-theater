@@ -33,6 +33,19 @@
 
 /**
 *
+* Heroes
+*
+*/
+
+.hero.is-large .hero-body {
+  @media(min-width: 769px) {
+    padding-bottom: 15rem;
+    padding-top   : 15rem;
+  }
+}
+
+/**
+*
 * WordPress
 *
 */

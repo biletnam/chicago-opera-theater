@@ -16,8 +16,8 @@ function get_acf_fields($id)
 
 function get_acf_header_images()
 {
-    global $wp_query;
-    $post_id = $wp_query->get_queried_object_id();
+    global $post;
+    $post_id = $post->ID;
 
     $obj = (object) array(
       'desktop_image' => get_field('desktop_image', $post_id),
@@ -38,24 +38,24 @@ function get_acf_header_carousel()
 
 function get_acf_header_text_color()
 {
-    global $wp_query;
-    $post_id = $wp_query->get_queried_object_id();
+    global $post;
+    $post_id = $post->ID;
 
     echo get_field('header_text_color', $post_id);
 }
 
 function get_acf_header_mask_color()
 {
-    global $wp_query;
-    $post_id = $wp_query->get_queried_object_id();
+    global $post;
+    $post_id = $post->ID;
 
     echo get_field('mask_color', $post_id);
 }
 
 function get_acf_header_titles()
 {
-    global $wp_query;
-    $post_id = $wp_query->get_queried_object_id();
+    global $post;
+    $post_id = $post->ID;
 
     $obj = (object) array(
       'title' => get_field('title', $post_id),
@@ -64,4 +64,18 @@ function get_acf_header_titles()
     );
 
     echo json_encode($obj, JSON_HEX_APOS);
+}
+
+function get_acf_header_links()
+{
+    global $post;
+    $post_id = $post->ID;
+
+    $links = get_field('links', $post_id);
+
+    if ($links) {
+        echo json_encode($links, JSON_HEX_APOS);
+    } else {
+        echo json_encode(array());
+    }
 }

@@ -28,6 +28,6 @@
     else:
       $header_images = get_acf_header_images();
       if (! empty($header_images->desktop_image) && ! empty($header_images->tablet_image) && ! empty($header_images->mobile_image)) : ?>
-        <header id="masthead" data='{"images": <?php echo json_encode($header_images, JSON_HEX_APOS); ?>, "titles": <?php get_acf_header_titles(); ?>, "text_color": "<?php get_acf_header_text_color() ?>", "mask_color": "<?php get_acf_header_mask_color() ?>"}'></header>
+        <header id="masthead" data='{"images": <?php echo json_encode($header_images, JSON_HEX_APOS); ?>, "titles": <?php get_acf_header_titles(); ?>, "text_color": "<?php get_acf_header_text_color() ?>", "mask_color": "<?php get_acf_header_mask_color() ?>", "links": <?php get_acf_header_links() ?>}'></header>
     <?php endif; ?>
 <?php endif ?>
