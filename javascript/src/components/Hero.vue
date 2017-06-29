@@ -1,15 +1,16 @@
 <template>
-<header id="masthead" class="hero is-primary" role="banner" v-bind:style="styleObject">
-  <div v-if="styleObject.backgroundImage" class="mask"></div>
+<header id="masthead" class="hero is-primary" role="banner" :style="headerStyleObject">
+  <div v-if="headerStyleObject.backgroundImage" class="mask" :style="maskStyleObject"></div>
   <div class="hero-footer">
-    <h1 v-if="titles.title">{{titles.title}}</h1>
-    <h2 v-if="titles.subtitle">{{titles.subtitle}}</h2>
-    <h4 v-if="titles.subsubtitle">{{titles.subsubtitle}}</h4>
+    <h1 v-if="titles.title" :style="textStyleObject">{{titles.title}}</h1>
+    <h2 v-if="titles.subtitle" :style="textStyleObject">{{titles.subtitle}}</h2>
+    <h4 v-if="titles.subsubtitle" :style="textStyleObject">{{titles.subsubtitle}}</h4>
   </div>
 </header>
 </template>
 
 <script>
+import chroma from 'chroma-js';
 export default {
   name: 'Hero',
   props: {
@@ -20,11 +21,29 @@ export default {
     titles: {
       type: Object,
       required: false
+    },
+    text_color: {
+      type: String,
+      required: false
+    },
+    mask_color: {
+      type: String,
+      required: false
     }
   },
   data() {
     let backgroundImage = null,
+      backgroundColor = null,
+      color = null,
       width = window.innerWidth;
+
+    if (this.text_color) {
+      color = this.text_color;
+    }
+
+    if (this.mask_color) {
+      backgroundColor = `rgba(${chroma(this.mask_color).alpha(.5).rgba().join(',')})`;
+    }
 
     if (width < 769 && this.images.mobile_image) {
       backgroundImage = `url(${this.images.mobile_image})`;
@@ -38,8 +57,14 @@ export default {
       backgroundImage = `url(${this.images.desktop_image})`;
     }
     return {
-      styleObject: {
+      headerStyleObject: {
         backgroundImage
+      },
+      maskStyleObject: {
+        backgroundColor
+      },
+      textStyleObject: {
+        color
       }
     }
   }

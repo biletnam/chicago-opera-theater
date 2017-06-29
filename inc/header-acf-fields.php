@@ -25,7 +25,23 @@ function get_acf_header_images()
       'mobile_image' => get_field('mobile_image', $post_id),
     );
 
-    echo json_encode($obj, JSON_HEX_APOS);
+    return $obj;
+}
+
+function get_acf_header_text_color()
+{
+    global $wp_query;
+    $post_id = $wp_query->get_queried_object_id();
+
+    echo get_field('header_text_color', $post_id);
+}
+
+function get_acf_header_mask_color()
+{
+    global $wp_query;
+    $post_id = $wp_query->get_queried_object_id();
+
+    echo get_field('mask_color', $post_id);
 }
 
 function get_acf_header_titles()
