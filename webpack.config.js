@@ -2,6 +2,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { resolve } = require('path');
 const webpack = require('webpack');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
   stats: {
@@ -61,6 +62,7 @@ module.exports = {
         safe: true,
       },
     }),
+    new LiveReloadPlugin({}),
   ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
