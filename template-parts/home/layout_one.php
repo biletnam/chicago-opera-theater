@@ -5,14 +5,14 @@
   <div class="tile is-vertical">
     <div class="tile">
       <div class="tile is-parent is-vertical">
-        <div class="tile is-child content">
+        <div class="tile is-child">
           <div class="card">
             <?php if (! empty($preview_set['top_left_header'])): ?>
               <header class="card-header">
                 <h4 class="card-header-title"><?php echo $preview_set['top_left_header']; ?></h4>
               </header>
             <?php endif; ?>
-            <div class="card-content">
+            <div class="card-content content">
               <?php echo $preview_set['top_left_content']; ?>
             </div>
             <?php if (! empty($preview_set['top_left_footer'])): ?>
@@ -27,14 +27,14 @@
             <?php endif; ?>
           </div>
         </div>
-        <div class="tile is-child content">
+        <div class="tile is-child">
           <div class="card">
             <?php if (! empty($preview_set['middle_left_header'])): ?>
               <header class="card-header">
                 <h4 class="card-header-title"><?php echo $preview_set['middle_left_header']; ?></h4>
               </header>
             <?php endif; ?>
-            <div class="card-content">
+            <div class="card-content content">
               <?php echo $preview_set['middle_left_content']; ?>
             </div>
             <?php if (! empty($preview_set['middle_left_footer'])): ?>
@@ -51,14 +51,14 @@
         </div>
       </div>
       <div class="tile is-parent">
-        <div class="tile is-child content">
+        <div class="tile is-child">
           <div class="card">
             <?php if (! empty($preview_set['top_right_header'])): ?>
               <header class="card-header">
                 <h4 class="card-header-title"><?php echo $preview_set['top_right_header']; ?></h4>
               </header>
             <?php endif; ?>
-            <div class="card-content">
+            <div class="card-content content">
               <?php echo $preview_set['top_right_content']; ?>
             </div>
             <?php if (! empty($preview_set['top_right_footer'])): ?>
@@ -76,14 +76,14 @@
       </div>
     </div>
     <div class="tile is-parent">
-      <div class="tile is-child content">
+      <div class="tile is-child">
         <div class="card">
           <?php if (! empty($preview_set['bottom_header'])): ?>
             <header class="card-header">
               <h4 class="card-header-title"><?php echo $preview_set['bottom_header']; ?></h4>
             </header>
           <?php endif; ?>
-          <div class="card-content">
+          <div class="card-content content">
             <?php echo $preview_set['bottom_content']; ?>
           </div>
           <?php if (! empty($preview_set['bottom_footer'])): ?>
