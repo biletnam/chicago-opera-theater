@@ -21,6 +21,11 @@
         </ul>
       </div>
     </div>
+    <footer class="card-footer" v-if="details.ticket_link">
+      <div class="card-footer-item">
+        <sidebar-link :link="{title: 'Buy Tickets', url: details.ticket_link}"></sidebar-link>
+      </div>
+    </footer>
   </div>
   <div class="card has-margin-top-sm">
     <header class="card-header">
@@ -55,6 +60,7 @@
 
 <script>
 import SidebarEvent from '~Vue/Sidebars/Event';
+import SidebarLink from '~Vue/Sidebars/Link';
 export default {
   name: 'ShowSidebar',
   props: {
@@ -64,7 +70,8 @@ export default {
     }
   },
   components: {
-    SidebarEvent
+    SidebarEvent,
+    SidebarLink
   }
 }
 </script>

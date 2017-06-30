@@ -4,7 +4,7 @@
       {{link.title}}
       <b-icon
           pack="fa"
-          icon="arrow-right">
+          :icon="link.icon || 'arrow-right'">
       </b-icon>
     </a>
   <p v-else>
@@ -20,7 +20,7 @@ export default {
     link: {
       type: Object,
       required: true
-    }
+    },
   },
   data() {
     return {

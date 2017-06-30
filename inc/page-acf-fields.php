@@ -25,6 +25,7 @@ function get_acf_show_details()
     global $post;
     $obj = array();
     $obj['performances'] = get_field('performances', $post->ID);
+    $obj['ticket_link'] = get_field('ticket_link', $post->ID);
     $obj['venue'] = get_field('venue', $post->ID);
     $obj['duration_and_language'] = get_field('duration_and_language', $post->ID);
 
