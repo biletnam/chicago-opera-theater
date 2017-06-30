@@ -40,6 +40,11 @@
     <div class="card-content">
       <div v-html="details.venue"></div>
     </div>
+    <footer class="card-footer" v-if="details.map_link">
+      <div class="card-footer-item">
+        <sidebar-link :link="{title: 'Get Directions', url: details.map_link}"></sidebar-link>
+      </div>
+    </footer>
   </div>
   <div class="card has-margin-top-sm">
     <header class="card-header">
