@@ -1,16 +1,12 @@
 <template>
-<div>
-  <a v-if="!active" :href="link.url" class="has-arrow-icon">
-      {{link.title}}
-      <b-icon
-          pack="fa"
-          :icon="link.icon || 'arrow-right'">
-      </b-icon>
-    </a>
-  <p v-else>
+<a :href="url()" :class="{'has-arrow-icon': !active}">
     {{link.title}}
-  </p>
-</div>
+    <b-icon
+      v-if="!active"
+      pack="fa"
+      :icon="link.icon || 'arrow-right'">
+    </b-icon>
+  </a>
 </template>
 
 <script>
@@ -26,19 +22,30 @@ export default {
     return {
       active: window.location.href === this.link.url
     }
+  },
+  methods: {
+    url() {
+      if (!this.active) {
+        return this.link.url;
+      } else {
+        return '';
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>@import '~variables';
-p {
-    font-weight: 600;
-    padding: 0.75em;
+a:not(.card-footer-item) {
     display: block;
+}
+*:not(.card-footer-item) > a {
+    padding: 0.75em;
+    font-weight: 600;
 }
 
 li.is-active {
-    p {
+    a {
         color: $primary-color;
     }
 }

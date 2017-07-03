@@ -117,11 +117,16 @@ require get_template_directory() . '/inc/page-acf-fields.php';
 require get_template_directory() . '/inc/hide-content-editor-home.php';
 
 /**
- * Add shortcodes
- */
-require get_template_directory() . '/inc/shortcodes.php';
-
-/**
  * Stop hardcoding image sizes
  */
 require get_template_directory() . '/inc/remove-image-hardcodes.php';
+
+/**
+ * TinyMCE plugin
+ */
+require get_template_directory() . '/inc/visual-editor-buttons/visual-editor-buttons.php';
+
+/**
+ * Bulma Plugin
+ */
+require get_template_directory() . '/inc/bulma-shortcodes/index.php';
