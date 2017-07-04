@@ -4,7 +4,7 @@
     <header class="card-header">
       <h4 class="card-header-title">
         <b-icon
-            pack="fa"
+            
             icon="calendar">
         </b-icon>&nbsp;
         Performances
@@ -31,7 +31,7 @@
     <header class="card-header">
       <h4 class="card-header-title">
         <b-icon
-            pack="fa"
+            
             icon="map-marker">
         </b-icon>&nbsp;
         Venue
@@ -50,7 +50,7 @@
     <header class="card-header">
       <h4 class="card-header-title">
         <b-icon
-            pack="fa"
+            
             icon="clock-o">
         </b-icon>&nbsp;
         Duration &amp; Language

@@ -3,7 +3,6 @@
     {{link.title}}
     <b-icon
       v-if="!active"
-      pack="fa"
       :icon="link.icon || 'arrow-right'">
     </b-icon>
   </a>

@@ -11,4 +11,6 @@ require('~Mounters/eventsSidebar');
 require('~Mounters/showSidebar');
 require('~Mounters/showContent');
 
-Vue.use(Buefy);
+Vue.use(Buefy, {
+  defaultIconPack: 'fa',
+});

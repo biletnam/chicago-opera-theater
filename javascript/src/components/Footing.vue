@@ -8,19 +8,19 @@
       <div class="column is-4">
         <h4>Follow Us</h4>
         <a href="https://www.facebook.com/ChicagoOperaTheater" target="_blank" title="Facebook Link">
-          <b-icon pack="fa" icon="facebook-square" type="is-white is-medium">
+          <b-icon  icon="facebook-square" type="is-white is-medium">
           </b-icon>
         </a>
         <a href="https://twitter.com/chicagoopera" target="_blank" title="Twitter Link">
-          <b-icon pack="fa" icon="twitter-square" type="is-white is-medium">
+          <b-icon  icon="twitter-square" type="is-white is-medium">
           </b-icon>
         </a>
         <a href="https://www.youtube.com/user/CHICAGOOPERATHEATER" target="_blank" title="Youtube Link">
-          <b-icon pack="fa" icon="youtube-square" type="is-white is-medium">
+          <b-icon  icon="youtube-square" type="is-white is-medium">
           </b-icon>
         </a>
         <a href="https://www.instagram.com/chicagooperatheater/" target="_blank" title="Instagram Link">
-          <b-icon pack="fa" icon="instagram" type="is-white is-medium">
+          <b-icon  icon="instagram" type="is-white is-medium">
           </b-icon>
         </a>
       </div>
