@@ -18,6 +18,10 @@ function sColumns($atts, $content = null)
 }
 
 add_shortcode('columns', 'sColumns');
+add_shortcode('columns-1', 'sColumns');
+add_shortcode('columns-2', 'sColumns');
+add_shortcode('columns-3', 'sColumns');
+add_shortcode('columns-4', 'sColumns');
 
 /**
  * Creates the tag <div class="column"></div>
@@ -30,6 +34,10 @@ function sColumn($atts, $content = null)
 }
 
 add_shortcode('column', 'sColumn');
+add_shortcode('column-1', 'sColumn');
+add_shortcode('column-2', 'sColumn');
+add_shortcode('column-3', 'sColumn');
+add_shortcode('column-4', 'sColumn');
 
 /**
  * Creates the tag <a class="button" role="button"></a>
@@ -56,6 +64,18 @@ function sBox($atts, $content = null)
 }
 
 add_shortcode('box', 'sBox');
+
+/**
+ * Creates the tag <div class="notification"></div>
+*/
+
+function sNotification($atts, $content = null)
+{
+    extract(shortcode_atts(array('type' => 'is-primary'), $atts));
+    return '<div class="notification '.$type.'">'.do_shortcode($content).'</div>';
+}
+
+add_shortcode('notification', 'sNotification');
 
 /**
  * Creates the tag <div class="card"></div>
@@ -136,3 +156,47 @@ function sIcon($atts, $content = null)
 }
 
 add_shortcode('icon', 'sIcon');
+
+/**
+ * Creates the tag <aside class="menu"></aside>
+*/
+
+function sMenu($atts, $content = null)
+{
+    return '<aside class="menu">'.do_shortcode($content).'</aside>';
+}
+
+add_shortcode('menu', 'sMenu');
+
+/**
+ * Creates the tag <p class="menu-label"></p>
+*/
+
+function sMenuLabel($atts, $content = null)
+{
+    return '<p class="menu-label">'.do_shortcode($content).'</p>';
+}
+
+add_shortcode('menu-label', 'sMenuLabel');
+
+/**
+ * Creates the tag <footer class="card-footer"></footer>
+*/
+
+function sMenuList($atts, $content = null)
+{
+    $parsed_content = do_shortcode($content);
+    extract(shortcode_atts(array(), $atts));
+
+    $menu_item_array = split_at_bar($parsed_content);
+    $concatenated_content = '';
+
+    foreach ($menu_item_array as $item) {
+        $string = '<li>'.$item.'</li>';
+        $concatenated_content .= $string;
+    }
+
+    return '<ul class="menu-list">'.$concatenated_content.'</ul>';
+}
+
+add_shortcode('menu-list', 'sMenuList');
