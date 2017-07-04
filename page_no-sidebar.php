@@ -13,9 +13,8 @@ get_header(); ?>
 
 <main id="main" class="section" role="main">
 	<div class="container">
-		<div class="columns">
 			<?php while (have_posts()) : the_post(); ?>
-				<article class="column content">
+				<article class="content">
 					<?php the_content(); ?>
 				</article>
 			<?php endwhile ?>
