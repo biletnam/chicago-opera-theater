@@ -91,11 +91,10 @@ require get_template_directory() . '/inc/hide-content-editor-home.php';
 require get_template_directory() . '/inc/remove-image-hardcodes.php';
 
 /**
- * TinyMCE plugin
+ * Prevent a Google Maps issue in ACF
  */
-require get_template_directory() . '/inc/visual-editor-buttons/visual-editor-buttons.php';
-
-/**
- * Bulma Plugin
- */
-require get_template_directory() . '/inc/bulma-shortcodes/index.php';
+function my_acf_init()
+{
+    acf_update_setting('google_api_key', 'AIzaSyCGdjjfkBYuZk3gcYd1ECkkX9NO91S4lWw');
+}
+add_action('acf/init', 'my_acf_init');
