@@ -23,7 +23,7 @@ get_header(); ?>
 						<?php the_content(); ?>
 					</article>
 				<?php else: ?>
-					<article class="column is-8" id="subscriptions-form"></article>
+					<article class="column is-8" id="subscriptions" data='<?php get_acf_subscription_content() ?>'></article>
 				<?php endif; ?>
 			<?php endwhile ?>
 			<?php get_template_part('template-parts/links-sidebar'); ?>
