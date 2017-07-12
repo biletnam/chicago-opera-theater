@@ -49,6 +49,8 @@ function get_acf_subscription_content()
 		$obj['apology_message'] = get_field('apology_message', $post->ID);
 		$obj['productions'] = get_field('productions', $post->ID);
 		$obj['price_zones'] = get_field('price_zones', $post->ID);
+		$obj['price_zone_images'] = get_field('price_zone_images', $post->ID);
+		$obj['hear_about_options'] = get_field('hear_about', $post->ID);
 
 		echo json_encode($obj, JSON_HEX_APOS);
 }

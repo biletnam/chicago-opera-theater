@@ -72,6 +72,7 @@ module.exports = {
       variables: resolve(__dirname, 'css', '_variables.scss'),
       '~Vue': resolve(__dirname, 'javascript/src/components'),
       '~Mounters': resolve(__dirname, 'javascript/src/mounters'),
+      '~Scripts': resolve(__dirname, 'javascript/src/scripts'),
     },
   },
 };

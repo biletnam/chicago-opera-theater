@@ -11,6 +11,7 @@ require('~Mounters/eventsSidebar');
 require('~Mounters/showSidebar');
 require('~Mounters/showContent');
 require('~Mounters/gmaps');
+require('~Mounters/subscriptions');
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa',
