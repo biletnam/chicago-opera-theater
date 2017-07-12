@@ -18,9 +18,13 @@ get_header(); ?>
 	<div class="container">
 		<div class="columns">
 			<?php while (have_posts()) : the_post(); ?>
-				<article class="column is-8 content">
-					<?php the_content(); ?>
-				</article>
+				<?php if ( ! is_page('subscriptions') ): ?>
+					<article class="column is-8 content">
+						<?php the_content(); ?>
+					</article>
+				<?php else: ?>
+					<article class="column is-8" id="subscriptions-form"></article>
+				<?php endif; ?>
 			<?php endwhile ?>
 			<?php get_template_part('template-parts/links-sidebar'); ?>
 		</div>
