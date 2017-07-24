@@ -1,5 +1,5 @@
 <template>
-<div class="hero is-primary is-large" :style="headerStyleObject">
+<div class="hero is-primary is-large" :style="headerStyleObject" @click="workAsLink">
   <div v-if="headerStyleObject.backgroundImage" class="mask" :style="maskStyleObject"></div>
   <div class="hero-body"></div>
   <div class="hero-foot">
@@ -19,6 +19,7 @@
     </div>
   </div>
 </div>
+
 </template>
 
 <script>
@@ -45,7 +46,8 @@ export default {
     links: {
       type: Array,
       required: false
-    }
+    },
+    primaryLink: String,
   },
   data() {
     let backgroundImage = null,
@@ -84,8 +86,16 @@ export default {
       },
       isMobile: window.innerWidth < 769
     }
+  },
+  methods: {
+    workAsLink() {
+      if (!this.isMobile && this.primaryLink) {
+        window.location.href = this.primaryLink;
+      }
+    }
   }
 }
+
 </script>
 
 <style lang="scss" scoped>@import '~variables';
@@ -96,6 +106,9 @@ export default {
     background-size: cover;
     @media(max-width: 768px) {
         height: 60vh;
+    }
+    @include tablet {
+        cursor: pointer;
     }
 
     .mask {

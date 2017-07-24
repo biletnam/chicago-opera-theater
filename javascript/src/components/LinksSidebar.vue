@@ -12,7 +12,13 @@
       </li>
     </ul>
   </div>
+  <div class="has-margin-top-lg">
+    <a href="https://chicagooperatheater.secure.force.com/signup" target="_blank" class="button is-medium is-primary" style="display: block;">
+          Join Our Mailing List
+        </a>
+  </div>
 </aside>
+
 </template>
 
 <script>
@@ -38,6 +44,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="scss" scoped>@import '~variables';

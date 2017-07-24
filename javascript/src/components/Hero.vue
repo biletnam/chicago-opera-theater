@@ -1,7 +1,8 @@
 <template>
 <header id="masthead" role="banner">
-  <panel :images="images" :titles="titles" :text_color="text_color" :mask_color="mask_color" :links="links"></panel>
+  <panel :images="images" :titles="titles" :text_color="text_color" :mask_color="mask_color" :links="links" :primary-link="primaryLink"></panel>
 </header>
+
 </template>
 
 <script>
@@ -29,10 +30,15 @@ export default {
     links: {
       type: Array,
       required: false
+    },
+    primaryLink: {
+      type: String,
+      required: false
     }
   },
   components: {
     Panel
   }
 }
+
 </script>

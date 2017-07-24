@@ -1,11 +1,12 @@
 <template>
 <header id="header-carousel" class="swiper-container" role="banner">
   <div class="swiper-wrapper">
-    <panel v-for="panel in panels" :key="panel.title" class="swiper-slide" :images="images(panel)" :titles="titles(panel)" :text_color="panel.text_color" :mask_color="panel.mask_color" :links="panel.links"></panel>
+    <panel v-for="panel in panels" :key="panel.title" class="swiper-slide" :images="images(panel)" :titles="titles(panel)" :text_color="panel.text_color" :mask_color="panel.mask_color" :links="panel.links" :primary-link="panel.primary_link"></panel>
   </div>
   <div class="swiper-button-prev swiper-button-white"></div>
   <div class="swiper-button-next swiper-button-white"></div>
 </header>
+
 </template>
 
 <script>
@@ -48,6 +49,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="scss" scoped>@import '~variables';

@@ -9,9 +9,9 @@
     <div>
       <ul>
         <li v-for="date in event.event_dates">
-          <p>
+          <a :href="date.ticket_link">
             {{date.date}}
-          </p>
+          </a>
         </li>
       </ul>
     </div>
@@ -20,6 +20,7 @@
     <sidebar-link class="card-footer-item" :link="{title: 'Read more', url: event.link}"></sidebar-link>
   </footer>
 </div>
+
 </template>
 
 <script>
@@ -36,6 +37,7 @@ export default {
     SidebarLink
   }
 }
+
 </script>
 
 <style lang="scss" scoped>@import '~variables';

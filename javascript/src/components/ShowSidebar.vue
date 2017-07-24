@@ -3,10 +3,7 @@
   <div class="card">
     <header class="card-header">
       <h4 class="card-header-title">
-        <b-icon
-            
-            icon="calendar">
-        </b-icon>&nbsp;
+        <b-icon icon="calendar"></b-icon>&nbsp;
         Performances
       </h4>
     </header>
@@ -14,9 +11,9 @@
       <div>
         <ul>
           <li v-for="date in details.performances">
-            <p>
+            <a :href="date.ticket_link">
               {{date.date}}
-            </p>
+            </a>
           </li>
         </ul>
       </div>
@@ -30,10 +27,7 @@
   <div class="card has-margin-top-sm">
     <header class="card-header">
       <h4 class="card-header-title">
-        <b-icon
-            
-            icon="map-marker">
-        </b-icon>&nbsp;
+        <b-icon icon="map-marker"></b-icon>&nbsp;
         Venue
       </h4>
     </header>
@@ -50,7 +44,7 @@
     <header class="card-header">
       <h4 class="card-header-title">
         <b-icon
-            
+
             icon="clock-o">
         </b-icon>&nbsp;
         Duration &amp; Language
@@ -60,7 +54,13 @@
       <div v-html="details.duration_and_language"></div>
     </div>
   </div>
+  <div class="has-margin-top-lg">
+    <a href="https://chicagooperatheater.secure.force.com/signup" target="_blank" class="button is-medium is-primary" style="display: block;">
+          Join Our Mailing List
+        </a>
+  </div>
 </aside>
+
 </template>
 
 <script>
@@ -79,4 +79,5 @@ export default {
     SidebarLink
   }
 }
+
 </script>

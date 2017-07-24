@@ -79,3 +79,13 @@ function get_acf_header_links()
         echo json_encode(array());
     }
 }
+
+function get_acf_header_primary_link()
+{
+    global $post;
+    $post_id = $post->ID;
+
+    $link = get_field('primary_link', $post_id);
+
+    echo $link;
+}
