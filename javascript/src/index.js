@@ -12,6 +12,7 @@ require('~Mounters/showSidebar');
 require('~Mounters/showContent');
 require('~Mounters/gmaps');
 require('~Mounters/subscriptions');
+require('~Mounters/gallery');
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa',
