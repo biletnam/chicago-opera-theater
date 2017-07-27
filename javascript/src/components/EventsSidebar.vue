@@ -11,12 +11,21 @@
     </div>
   </div>
   <div class="has-margin-top-lg">
-    <a href="https://chicagooperatheater.secure.force.com/signup" target="_blank" class="button is-medium is-primary" style="display: block;">
+    <a :href="button_links.box_office_url" target="_blank" class="button is-medium is-primary" style="display: block;">
+          Buy Tickets
+        </a>
+  </div>
+  <div class="has-margin-top-lg">
+    <a :href="button_links.donate_url" target="_blank" class="button is-medium is-primary" style="display: block;">
+          Donate
+        </a>
+  </div>
+  <div class="has-margin-top-lg">
+    <a :href="button_links.newsletter_url" target="_blank" class="button is-medium is-primary" style="display: block;">
           Join Our Mailing List
         </a>
   </div>
 </aside>
-
 </template>
 
 <script>
@@ -31,11 +40,11 @@ export default {
     events: {
       type: Array,
       required: true
-    }
+    },
+    button_links: Object
   },
   components: {
     SidebarEvent
   }
 }
-
 </script>
