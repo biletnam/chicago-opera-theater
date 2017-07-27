@@ -19,7 +19,6 @@
     </div>
   </div>
 </div>
-
 </template>
 
 <script>
@@ -51,7 +50,7 @@ export default {
   },
   data() {
     let backgroundImage = null,
-      backgroundColor = null,
+      background = null,
       color = null,
       width = window.innerWidth;
 
@@ -60,7 +59,9 @@ export default {
     }
 
     if (this.mask_color) {
-      backgroundColor = `rgba(${chroma(this.mask_color).alpha(.5).rgba().join(',')})`;
+      const startingColor = `rgba(${chroma(this.mask_color).alpha(.7).rgba().join(',')})`;
+      const endingColor = `rgba(${chroma(this.mask_color).alpha(.001).rgba().join(',')})`;
+      background = `linear-gradient(to top, ${startingColor}, ${endingColor} 60%, transparent)`;
     }
 
     if (width < 768 && this.images.mobile_image) {
@@ -79,7 +80,7 @@ export default {
         backgroundImage
       },
       maskStyleObject: {
-        backgroundColor
+        background
       },
       textStyleObject: {
         color
@@ -95,7 +96,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style lang="scss" scoped>@import '~variables';
@@ -117,7 +117,7 @@ export default {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: darken(transparentize($primary-color, .5), 20);
+        background: linear-gradient(to top, darken(transparentize($primary-color, .3), 20), darken(transparentize($primary-color, .999), 20) 60%, transparent);
         z-index: 0;
     }
 
