@@ -1,6 +1,7 @@
 <!-- Layout Two -->
 
 <?php $preview_set = get_query_var('preview_set'); ?>
+<?php if ($preview_set['visible']) : ?>
 <div class="tile is-ancestor">
   <div class="tile is-vertical">
     <div class="tile">
@@ -106,3 +107,4 @@
     </div>
   </div>
 </div>
+<?php endif; ?>
