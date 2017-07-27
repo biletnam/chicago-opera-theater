@@ -147,7 +147,7 @@
             {{monify(donation_amount)}}
           </td>
         </tr>
-        <tr>
+        <tr v-if="has_fee">
           <td>
             <strong>Handling Fee ($6 per subscription)</strong>
           </td>
@@ -222,26 +222,16 @@ export default {
       type: Boolean,
       default: false
     },
-    apology_message: {
-      type: String,
-      required: false
+    apology_message: String,
+    productions: Array,
+    price_zones: Array,
+    price_zone_images: Array,
+    hear_about_options: Array,
+    has_fee: {
+      type: Boolean,
+      default: false
     },
-    productions: {
-      type: Array,
-      required: false
-    },
-    price_zones: {
-      type: Array,
-      required: false
-    },
-    price_zone_images: {
-      type: Array,
-      required: false
-    },
-    hear_about_options: {
-      type: Array,
-      required: false
-    }
+    fee_amount: Number
   },
   data() {
     const selected_dates = {};
@@ -273,7 +263,11 @@ export default {
         .replace(' ', '-');
     },
     calc_total() {
-      return Number(this.subtotal) + Number(this.donation_amount) + Number(this.handling_fee)
+      let subtotal = Number(this.subtotal) + Number(this.donation_amount);
+      if (this.has_fee) {
+        subtotal += Number(this.handling_fee)
+      }
+      return subtotal;
     },
     monify(number) {
       return formatMoney(number);
@@ -290,7 +284,7 @@ export default {
   },
   watch: {
     number_of_seats() {
-      this.handling_fee = this.number_of_seats * 6;
+      this.handling_fee = this.number_of_seats * Number(this.fee_amount);
       this.total = this.calc_total();
     },
     donation_amount() {
