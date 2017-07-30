@@ -601,10 +601,12 @@ export default {
     }
   },
   mounted() {
+    let width;
     if (!this.processed) {
       const card = new Card({
         form: '#cc-info',
-        container: '#card-image'
+        container: '#card-image',
+        width
       })
     }
   }
@@ -617,8 +619,11 @@ export default {
 }
 </style>
 
-<style>
+<style lang="scss">
 .jp-card-container {
-  margin-bottom: 1.5rem !important;
+    @media(max-width: 420px) {
+        display: none;
+    }
+    margin-bottom: 1.5rem !important;
 }
 </style>
