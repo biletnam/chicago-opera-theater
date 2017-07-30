@@ -62,7 +62,7 @@ function getAnAcceptPaymentPage($params)
 
   $setting6 = new AnetAPI\SettingType();
   $setting6->setSettingName("hostedPaymentIFrameCommunicatorUrl");
-  $setting6->setSettingValue("{\"url\": \"https://www.chicagooperatheater-staging.com\"}");
+  $setting6->setSettingValue("{\"url\": \"https://www.chicagooperatheater-staging.com/iframe/communicator.html\"}");
 
   // Build transaction request
   $request = new AnetAPI\GetHostedPaymentPageRequest();
