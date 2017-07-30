@@ -70,6 +70,22 @@ function custom_cot_settings_init() {
    'cot_custom_authorize_settings_section'
  );
 
+ add_settings_field(
+   'cot_transaction_email',
+   'Email address to send subscription details to',
+   'cot_transaction_email_callback_function',
+   'general',
+   'cot_custom_authorize_settings_section'
+ );
+
+ add_settings_field(
+   'cot_current_subscriber_season',
+   'Calendar years of current season',
+   'cot_current_subscriber_season_callback_function',
+   'general',
+   'cot_custom_authorize_settings_section'
+ );
+
  register_setting( 'general', 'cot_newsletter_url' );
  register_setting( 'general', 'cot_box_office_url' );
  register_setting( 'general', 'cot_donate_url' );
@@ -77,6 +93,8 @@ function custom_cot_settings_init() {
  register_setting( 'general', 'cot_authorize_api_key' );
  register_setting( 'general', 'cot_transaction_key' );
  register_setting( 'general', 'cot_client_key' );
+ register_setting( 'general', 'cot_transaction_email' );
+ register_setting( 'general', 'cot_current_subscriber_season' );
 }
 
 add_action( 'admin_init', 'custom_cot_settings_init' );
@@ -115,6 +133,14 @@ function cot_transaction_key_callback_function() {
 
 function cot_client_key_callback_function() {
  echo '<input name="cot_client_key" id="cot_client_key" class="code" value="'.get_option('cot_client_key').'" />';
+}
+
+function cot_transaction_email_callback_function() {
+ echo '<input name="cot_transaction_email" id="cot_transaction_email" class="code" value="'.get_option('cot_transaction_email').'" />';
+}
+
+function cot_current_subscriber_season_callback_function() {
+ echo '<input name="cot_current_subscriber_season" id="cot_current_subscriber_season" class="code" value="'.get_option('cot_current_subscriber_season').'" />';
 }
 
 function get_cot_custom_settings() {

@@ -96,6 +96,11 @@ require get_template_directory() . '/inc/remove-image-hardcodes.php';
 require get_template_directory() . '/inc/custom-settings.php';
 
 /**
+ * Emailer for Authorize subscribers
+ */
+require get_template_directory() . '/inc/send-subscription-notification-email.php';
+
+/**
  * Authorize.net form
  */
 require get_template_directory() . '/inc/authorize-form-token.php';

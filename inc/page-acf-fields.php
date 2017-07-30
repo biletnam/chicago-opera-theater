@@ -54,6 +54,7 @@ function get_acf_subscription_content()
     $obj['has_fee'] = get_field('has_fee', $post->ID);
     $obj['fee_amount'] = get_field('fee_amount', $post->ID);
     $obj['authorize'] = get_cot_authorize_custom_settings();
+    $obj['thank_you_message'] = get_field('thank_you_message', $post->ID);
 
     echo json_encode($obj, JSON_HEX_APOS);
 }

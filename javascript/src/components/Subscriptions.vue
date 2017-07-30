@@ -1,9 +1,9 @@
 <template>
 <article class="column is-8" id="subscriptions">
-  <div v-if="!available" class="section content">
+  <div v-if="!available && !processed" class="section content">
     <div v-html="apology_message"></div>
   </div>
-  <section v-else>
+  <section v-if="available && !processed">
     <!-- Select Dates -->
     <div class="section">
       <h3>1. Select your performance dates</h3>
@@ -21,7 +21,7 @@
           <div class="level-item">
             <b-field>
               <b-select :id="slugify(production.name)" placeholder="Select a date" v-model="selected_dates[String(production.name)]">
-                <option v-for="date in production.dates" :value="date.value">
+                <option v-for="date in production.dates" :value="production.name + ' - ' + date.value">
                   {{date.label}}
                 </option>
               </b-select>
@@ -45,7 +45,7 @@
         <div class="level-right">
           <div class="level-item">
             <b-field>
-              <b-input id="number-of-seats" type="number" placeholder="0" v-model="number_of_seats" step="1" max="15"></b-input>
+              <b-input id="number-of-seats" type="number" placeholder="0" v-model="number_of_seats" step="1" max="15" min="0"></b-input>
             </b-field>
           </div>
         </div>
@@ -80,7 +80,7 @@
         </div>
         <div class="column is-7">
           <b-field>
-            <b-input type="textarea" id="special-requests" v-model="request"></b-input>
+            <b-input type="textarea" id="special-requests" v-model="special_request"></b-input>
           </b-field>
         </div>
       </div>
@@ -120,7 +120,7 @@
         <div class="level-right">
           <div class="level-item">
             <b-field>
-              <b-input icon="usd" id="donation-amount" type="number" v-model="donation_amount" step=".01"></b-input>
+              <b-input icon="usd" id="donation-amount" type="number" v-model="donation_amount" step="1" min="0"></b-input>
             </b-field>
           </div>
         </div>
@@ -169,6 +169,17 @@
     <div class="section">
       <h3 class="has-margin-bottom-sm">5. Payment and Contact Information</h3>
 
+      <b-field>
+        <b-select v-model="customer.subscriber_salutation">
+          <option value="Mr.">Mr.</option>
+          <option value="Mrs.">Mrs.</option>
+          <option value="Ms.">Ms.</option>
+          <option value="Dr.">Dr.</option>
+          <option value="">None</option>
+        </b-select>
+        <b-input v-model="customer.subscriber_name" placeholder="Your full name..." name="subscriber_name"></b-input>
+      </b-field>
+
       <b-field label="Phone Number">
         <b-input type="tel" v-model="customer.phone" placeholder="Your phone number..."></b-input>
       </b-field>
@@ -180,34 +191,39 @@
       <h4 class="has-margin-top-lg">Billing</h4>
       <hr class="has-margin-bottom-lg" />
 
-      <b-field>
-        <b-select v-model="customer.billing.salutation">
-          <option value="Mr.">Mr.</option>
-          <option value="Mrs.">Mrs.</option>
-          <option value="Ms.">Ms.</option>
-          <option value="Dr.">Dr.</option>
-          <option value="">None</option>
-        </b-select>
-        <b-input v-model="customer.billing.first_name" placeholder="Your first name..."></b-input>
-        <b-input v-model="customer.billing.last_name" placeholder="Your last name..."></b-input>
+      <div class="columns">
+        <div class="column">
+          <b-field label="Billing First Name">
+            <b-input v-model="customer.billing.first_name" placeholder="Your first name..."></b-input>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Billing Last Name">
+            <b-input v-model="customer.billing.last_name" placeholder="Your last name..."></b-input>
+          </b-field>
+        </div>
+      </div>
+
+      <b-field label="Billing Company">
+        <b-input v-model="customer.billing.company" placeholder="Your company name..."></b-input>
       </b-field>
 
-      <b-field label="Address">
+      <b-field label="Billing Address">
         <b-input v-model="customer.billing.address" placeholder="Your address..."></b-input>
       </b-field>
 
-      <b-field label="Address cont.">
+      <b-field label="Billing Address cont.">
         <b-input v-model="customer.billing.address_2" placeholder="Your address continued..."></b-input>
       </b-field>
 
       <div class="columns">
         <div class="column">
-          <b-field label="City">
+          <b-field label="Billing City">
             <b-input placeholder="City..." v-model="customer.billing.city"></b-input>
           </b-field>
         </div>
         <div class="column">
-          <b-field label="State">
+          <b-field label="Billing State">
             <b-select placeholder="Select a State..." v-model="customer.billing.state">
               <option v-for="state in states" :value="state">
                 {{state}}
@@ -215,13 +231,15 @@
             </b-select>
           </b-field>
         </div>
+      </div>
+      <div class="columns">
         <div class="column">
-          <b-field label="Zip">
+          <b-field label="Billing Zip">
             <b-input placeholder="Zip..." v-model="customer.billing.zip"></b-input>
           </b-field>
         </div>
         <div class="column">
-          <b-field label="Country">
+          <b-field label="Billing Country">
             <b-select placeholder="Select a Country..." v-model="customer.billing.country">
               <option value="US">US</option>
               <option value="CA">CA</option>
@@ -235,34 +253,39 @@
 
       <b-switch v-model="billing_shipping_same" class="has-margin-bottom-sm">Shipping same as billing?</b-switch>
 
-      <b-field>
-        <b-select v-model="customer.shipping.salutation" :disabled.bool="billing_shipping_same">
-          <option value="Mr.">Mr.</option>
-          <option value="Mrs.">Mrs.</option>
-          <option value="Ms.">Ms.</option>
-          <option value="Dr.">Dr.</option>
-          <option value="">None</option>
-        </b-select>
-        <b-input v-model="customer.shipping.first_name" placeholder="Your first name..." :disabled.bool="billing_shipping_same"></b-input>
-        <b-input v-model="customer.shipping.last_name" placeholder="Your last name..." :disabled.bool="billing_shipping_same"></b-input>
+      <div class="columns">
+        <div class="column">
+          <b-field label="Shipping First Name">
+            <b-input v-model="customer.shipping.first_name" placeholder="Your first name..." :disabled.bool="billing_shipping_same"></b-input>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Shipping Last Name">
+            <b-input v-model="customer.shipping.last_name" placeholder="Your last name..." :disabled.bool="billing_shipping_same"></b-input>
+          </b-field>
+        </div>
+      </div>
+
+      <b-field label="Shipping Company">
+        <b-input v-model="customer.shipping.company" placeholder="Your company name..." :disabled.bool="billing_shipping_same"></b-input>
       </b-field>
 
-      <b-field label="Address">
+      <b-field label="Shipping Address">
         <b-input v-model="customer.shipping.address" placeholder="Your address..." :disabled.bool="billing_shipping_same"></b-input>
       </b-field>
 
-      <b-field label="Address cont.">
+      <b-field label="Shipping Address cont.">
         <b-input v-model="customer.shipping.address_2" placeholder="Your address continued..." :disabled.bool="billing_shipping_same"></b-input>
       </b-field>
 
       <div class="columns">
         <div class="column">
-          <b-field label="City">
+          <b-field label="Shipping City">
             <b-input placeholder="City..." v-model="customer.shipping.city" :disabled.bool="billing_shipping_same"></b-input>
           </b-field>
         </div>
         <div class="column">
-          <b-field label="State">
+          <b-field label="Shipping State">
             <b-select placeholder="Select a State..." v-model="customer.shipping.state" :disabled.bool="billing_shipping_same">
               <option v-for="state in states" :value="state">
                 {{state}}
@@ -270,13 +293,15 @@
             </b-select>
           </b-field>
         </div>
+      </div>
+      <div class="columns">
         <div class="column">
-          <b-field label="Zip">
+          <b-field label="Shipping Zip">
             <b-input placeholder="Zip..." v-model="customer.shipping.zip" :disabled.bool="billing_shipping_same"></b-input>
           </b-field>
         </div>
         <div class="column">
-          <b-field label="Country">
+          <b-field label="Shipping Country">
             <b-select placeholder="Select a Country..." v-model="customer.shipping.country" :disabled.bool="billing_shipping_same">
               <option value="US">US</option>
               <option value="CA">CA</option>
@@ -309,11 +334,15 @@
           </div>
 
           <div class="column is-6">
-            <button class="button is-primary" style="display: block;width: 100%;" @click="submitPayment">Pay Now</button>
+            <button class="button is-primary" style="display: block;width: 100%;" @click="submitPayment" :disabled.bool="loading" :class="{'is-loading': loading}">Pay Now</button>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <section v-if="processed">
+    <div class="content" v-html="thank_you_message"></div>
   </section>
 
   <b-modal :active.sync="isSeatMapModalActive" :width="640">
@@ -388,6 +417,7 @@ export default {
     },
     fee_amount: String,
     authorize: Object,
+    thank_you_message: String
   },
   data() {
     const selected_dates = {};
@@ -406,15 +436,17 @@ export default {
       handling_fee: 0.00,
       total: 0.00,
       selected_zone: null,
-      request: null,
+      special_request: null,
       hear_about: null,
       customer: {
         phone: null,
         email: null,
+        subscriber_name: null,
+        subscriber_salutation: 'Mr.',
         billing: {
-          salutation: 'Mr.',
           first_name: null,
           last_name: null,
+          company: null,
           address: null,
           address_2: null,
           city: null,
@@ -423,9 +455,9 @@ export default {
           country: null,
         },
         shipping: {
-          salutation: 'Mr.',
           first_name: null,
           last_name: null,
+          company: null,
           address: null,
           address_2: null,
           city: null,
@@ -435,21 +467,23 @@ export default {
         }
       },
       billing_shipping_same: true,
-      payment_nonce: null,
       cc: {
         number: null,
         full_name: null,
         exp: null,
         cvc: null
-      }
+      },
+      loading: false,
+      processed: false,
     }
   },
   methods: {
     submitPayment() {
+      this.loading = true;
       const authData = {};
       const cardData = {};
 
-      cardData.cardNumber = this.cc.number;
+      cardData.cardNumber = this.cc.number.replace(/ /g, '');
       cardData.cardCode = this.cc.cvc;
       cardData.month = this.cc.exp.trim()
         .replace(/ /g, '')
@@ -466,19 +500,55 @@ export default {
         authData
       }
 
-      Accept.dispatchData(secureData, responseHandler);
-
-      function responseHandler(response) {
+      function responseHandler(that, response) {
+        console.log(response);
         if (response.messages.resultCode === "Error") {
           for (var i = 0; i < response.messages.message.length; i++) {
             console.log(response.messages.message[i].code + ": " + response.messages.message[i].text);
           }
-          alert("acceptJS library error!")
+          //alert("Oops! It looks like there was an error. You were not charged for this purchase, please contact COT at (312) 704-8414 to complete your order.")
         } else {
-          console.log(response.opaqueData.dataDescriptor);
-          console.log(response.opaqueData.dataValue);
+          that.postData(response.opaqueData);
         }
       }
+      Accept.dispatchData(secureData, responseHandler.bind(null, this));
+    },
+    postData(data) {
+      console.log(data);
+      const a = axios.create({
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      a.post('/wp-json/cot/payment-post', {
+          dataDesc: data.dataDescriptor,
+          dataValue: data.dataValue,
+          customer: this.customer,
+          total: this.total,
+          details: {
+            zone: this.selected_zone.label,
+            request: this.special_request,
+            selected_dates: this.selected_dates,
+            number_of_seats: this.number_of_seats,
+            donation_amount: this.donation_amount,
+            hear_about: this.hear_about,
+            fee: this.handling_fee,
+            subtotal: this.subtotal
+          }
+        })
+        .then((result) => {
+          if (result.data.result_code === 'Ok') {
+            this.processed = true;
+            this.loading = false;
+          } else {
+            console.log(result);
+            //alert("Oops! It looks like there was an error. You were not charged for this purchase, please contact COT at (312) 704-8414 to complete your order.");
+          }
+        }, (error) => {
+          console.log(error);
+          alert("Oops! It looks like there was an error. You were not charged for this purchase, please contact COT at (312) 704-8414 to complete your order.");
+        });
     },
     activateSeatMapModal(url) {
       this.seatMapUrl = url;
@@ -510,7 +580,9 @@ export default {
   },
   watch: {
     number_of_seats() {
-      this.handling_fee = this.number_of_seats * Number(this.fee_amount);
+      if (this.has_fee) {
+        this.handling_fee = this.number_of_seats * Number(this.fee_amount);
+      }
       this.total = this.calc_total();
     },
     donation_amount() {
@@ -529,10 +601,12 @@ export default {
     }
   },
   mounted() {
-    const card = new Card({
-      form: '#cc-info',
-      container: '#card-image'
-    })
+    if (!this.processed) {
+      const card = new Card({
+        form: '#cc-info',
+        container: '#card-image'
+      })
+    }
   }
 }
 </script>

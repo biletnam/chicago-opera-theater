@@ -12,7 +12,7 @@ const insertAt = function (baseString, stringToBeInserted, index) {
 
   if (index > baseString.length) {
     console.warn('insertAt() was passed an index past the end of the base string, index\
-		 was changed to be the end of the string');
+     was changed to be the end of the string');
 
     insertionPoint = baseString.length;
   }
@@ -51,7 +51,7 @@ const formatMoney = function (number) {
     return '';
   }
 
-  if (number === 0 || number === 0.00) {
+  if (number == 0) {
     return '$0.00';
   }
 

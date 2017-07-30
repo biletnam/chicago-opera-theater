@@ -1,106 +1,149 @@
 <?php
-require get_template_directory() .  '/vendor/autoload.php';
-use net\authorize\api\contract\v1 as AnetAPI;
-use net\authorize\api\controller as AnetController;
+  require get_template_directory() .  '/vendor/autoload.php';
 
-define("AUTHORIZENET_LOG_FILE", "phplog");
+  use net\authorize\api\contract\v1 as AnetAPI;
+  use net\authorize\api\controller as AnetController;
 
-function getAnAcceptPaymentPage($params)
+  define("AUTHORIZENET_LOG_FILE", "phplog");
+
+function createAnAcceptPaymentTransaction($params)
 {
-  /* Create a merchantAuthenticationType object with authentication details
-     retrieved from the constants file */
-  $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
-  $merchantAuthentication->setName('987f2bGPK');
-  $merchantAuthentication->setTransactionKey('4J4fcmf44G2E8Z9q');
+    /* Create a merchantAuthenticationType object with authentication details
+       retrieved from the constants file */
+    $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
+    $merchantAuthentication->setName(get_option('cot_authorize_api_key'));
+    $merchantAuthentication->setTransactionKey(get_option('cot_transaction_key'));
 
-  // Set the transaction's refId
-  $refId = 'ref' . time();
+    // Set the transaction's refId
+    $refId = 'ref' . time();
 
-  //create a transaction
-  $transactionRequestType = new AnetAPI\TransactionRequestType();
-  $transactionRequestType->setTransactionType("authCaptureTransaction");
-  $transactionRequestType->setAmount('12.00');
+    // Create the payment object for a payment nonce
+    $opaqueData = new AnetAPI\OpaqueDataType();
+    $opaqueData->setDataDescriptor($params['dataDesc']);
+    $opaqueData->setDataValue($params['dataValue']);
 
-  $customerDataType = new AnetAPI\CustomerDataType();
-  $customerDataType->setEmail('joshua.r.bartlett@gmail.com');
 
-  $transactionRequestType->setCustomer($customerDataType);
+    // Add the payment data to a paymentType object
+    $paymentOne = new AnetAPI\PaymentType();
+    $paymentOne->setOpaqueData($opaqueData);
 
-  $customerAddressType = new AnetAPI\CustomerAddressType();
-  $customerAddressType->setFirstName($params['customer']['billing']['first_name']);
-  $customerAddressType->setLastName($params['customer']['billing']['last_name']);
-  $customerAddressType->setPhoneNumber($params['customer']['phone']);
-  $customerAddressType->setCompany($params['customer']['billing']['company']);
-  $customerAddressType->setAddress($params['customer']['billing']['address']);
-  $customerAddressType->setCity($params['customer']['billing']['city']);
-  $customerAddressType->setState($params['customer']['billing']['state']);
-  $customerAddressType->setZip($params['customer']['billing']['zip']);
-  $customerAddressType->setCountry($params['customer']['billing']['country']);
+    // Create order information
+    $order = new AnetAPI\OrderType();
+    $orderDetails = get_option('cot_current_subscriber_season') . ' SUBS: DATES ';
+    foreach($params['details']['selected_dates'] as $date) {
+      $orderDetails .= '['.$date.']';
+    }
+    $orderDetails .= ' QTY ['.$params['details']['number_of_seats'].'] ';
+    $orderDetails .= 'SEC ['.$params['details']['zone'].'] ';
+    $orderDetails .= 'DONATION [$'.$params['details']['donation_amount'].'] ';
+    $orderDetails .= 'CCFEE [$'.$params['details']['fee'].'] ';
+    $orderDetails .= 'TOTAL [$'.$params['total'].'] ';
+    $orderDetails .= 'EMAIL ['.$params['customer']['email'].'] ';
+    $order->setDescription($orderDetails);
 
-  $transactionRequestType->setBillTo($customerAddressType);
+    // Set the customer's Bill To address
+    $cust = $params['customer']['billing'];
+    $customerBillingAddress = new AnetAPI\CustomerAddressType();
+    $customerBillingAddress->setFirstName($cust['first_name']);
+    $customerBillingAddress->setLastName($cust['last_name']);
+    $customerBillingAddress->setCompany($cust['company']);
+    $customerBillingAddress->setPhoneNumber($params['customer']['phone']);
+    $customerBillingAddress->setAddress($cust['address']);
+    $customerBillingAddress->setCity($cust['city']);
+    $customerBillingAddress->setState($cust['state']);
+    $customerBillingAddress->setZip($cust['zip']);
+    $customerBillingAddress->setCountry($cust['country']);
 
-  // Set Hosted Form options
-  $setting1 = new AnetAPI\SettingType();
-  $setting1->setSettingName("hostedPaymentButtonOptions");
-  $setting1->setSettingValue("{\"text\": \"Pay\"}");
+    // Set the customer's Bill To address
+    $cust = $params['customer']['shipping'];
+    $customerShippingAddress = new AnetAPI\NameAndAddressType();
+    $customerShippingAddress->setFirstName($cust['first_name']);
+    $customerShippingAddress->setLastName($cust['last_name']);
+    $customerShippingAddress->setCompany($cust['company']);
+    $customerShippingAddress->setAddress($cust['address']);
+    $customerShippingAddress->setCity($cust['city']);
+    $customerShippingAddress->setState($cust['state']);
+    $customerShippingAddress->setZip($cust['zip']);
+    $customerShippingAddress->setCountry($cust['country']);
 
-  $setting2 = new AnetAPI\SettingType();
-  $setting2->setSettingName("hostedPaymentOrderOptions");
-  $setting2->setSettingValue("{\"show\": false}");
+    // Set the customer's identifying information
+    $customerData = new AnetAPI\CustomerDataType();
+    $customerData->setType("individual");
+    $customerData->setEmail($params['customer']['email']);
 
-  $setting3 = new AnetAPI\SettingType();
-  $setting3->setSettingName("hostedPaymentReturnOptions");
-  $setting3->setSettingValue("{\"showReceipt\": true}");
+    // Create a TransactionRequestType object and add the previous objects to it
+    $transactionRequestType = new AnetAPI\TransactionRequestType();
+    $transactionRequestType->setTransactionType("authCaptureTransaction");
+    $transactionRequestType->setAmount($params['total']);
+    $transactionRequestType->setOrder($order);
+    $transactionRequestType->setPayment($paymentOne);
+    $transactionRequestType->setBillTo($customerBillingAddress);
+    $transactionRequestType->setShipTo($customerShippingAddress);
+    $transactionRequestType->setCustomer($customerData);
 
-  $setting4 = new AnetAPI\SettingType();
-  $setting4->setSettingName("hostedPaymentShippingAddressOptions");
-  $setting4->setSettingValue("{\"show\": false}");
+    // Assemble the complete transaction request
+    $request = new AnetAPI\CreateTransactionRequest();
+    $request->setMerchantAuthentication($merchantAuthentication);
+    $request->setRefId($refId);
+    $request->setTransactionRequest($transactionRequestType);
 
-  $setting5 = new AnetAPI\SettingType();
-  $setting5->setSettingName("hostedPaymentBillingAddressOptions");
-  $setting5->setSettingValue("{\"show\": false}");
+    // Create the controller and get the response
+    $controller = new AnetController\CreateTransactionController($request);
+    $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
 
-  $setting6 = new AnetAPI\SettingType();
-  $setting6->setSettingName("hostedPaymentIFrameCommunicatorUrl");
-  $setting6->setSettingValue("{\"url\": \"https://www.chicagooperatheater-staging.com/iframe/communicator.html\"}");
-
-  // Build transaction request
-  $request = new AnetAPI\GetHostedPaymentPageRequest();
-  $request->setMerchantAuthentication($merchantAuthentication);
-  $request->setTransactionRequest($transactionRequestType);
-
-  $request->addToHostedPaymentSettings($setting1);
-  $request->addToHostedPaymentSettings($setting2);
-  $request->addToHostedPaymentSettings($setting3);
-  $request->addToHostedPaymentSettings($setting4);
-  $request->addToHostedPaymentSettings($setting5);
-  $request->addToHostedPaymentSettings($setting6);
-
-  //execute request
-  $controller = new AnetController\GetHostedPaymentPageController($request);
-  $response = $controller->executeWithApiResponse( \net\authorize\api\constants\ANetEnvironment::SANDBOX);
-
-  return $response;
+    return $response;
 }
 
-function serialize_cot_form_token(WP_REST_Request $request) {
+function cot_post_payment_nonce(WP_REST_Request $request) {
   $params = $request->get_json_params();
-  $response = getAnAcceptPaymentPage($params);
-  $obj['token'] = $response->getToken();
-  $obj['result_code'] = $response->getMessages()->getResultCode();
-  $obj['messages'] = array();
-  foreach ($response->getMessages()->getMessage() as $message) {
-    $messageObj = array();
-    $messageObj['text'] = $message->getText();
-    $messageObj['code'] = $message->getCode();
-    array_push($obj['messages'], $messageObj);
+  $response = createAnAcceptPaymentTransaction($params);
+  $obj = array();
+  if ($response != null) {
+    $obj['result_code'] = $response->getMessages()->getResultCode();
+    if ($response->getMessages()->getResultCode() == 'Ok') {
+      $refId = $response->getRefId();
+      $tresponse = $response->getTransactionResponse();
+
+      if ($tresponse != null && $tresponse->getMessages() != null) {
+        $obj['messages'] = array();
+        foreach ($tresponse->getMessages() as $message) {
+          $messageObj = array();
+          $messageObj['text'] = $message->getDescription();
+          $messageObj['code'] = $message->getCode();
+          array_push($obj['messages'], $messageObj);
+        }
+        send_cot_subscription_notification($params, $refId);
+      } else {
+        if ($tresponse->getErrors() != null) {
+          $obj['errors'] = array();
+          foreach ($tresponse->getErrors() as $error) {
+            $messageObj = array();
+            $messageObj['text'] = $error->getErrorTest();
+            $messageObj['code'] = $error->getErrorCode();
+            array_push($obj['errors'], $messageObj);
+          }
+        }
+      }
+    } else {
+      $tresponse = $response->getTransactionResponse();
+
+      if ($tresponse != null && $tresponse->getErrors() != null) {
+        $obj['errors'] = array();
+        foreach ($tresponse->getErrors() as $error) {
+          $messageObj = array();
+          $messageObj['text'] = $error->getErrorCode();
+          $messageObj['code'] = $error->getErrorText();
+          array_push($obj['errors'], $messageObj);
+        }
+      }
+    }
   }
   return $obj;
 }
 
 add_action('rest_api_init', function() {
-  register_rest_route('cot', 'form-token', array(
+  register_rest_route('cot', 'payment-post', array(
     'methods' => 'POST',
-    'callback' => 'serialize_cot_form_token'
+    'callback' => 'cot_post_payment_nonce'
   ));
 });
