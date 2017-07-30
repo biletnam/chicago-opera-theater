@@ -25,5 +25,10 @@ get_header(); ?>
   </div>
 </main><!-- #main -->
 
+<?php if (get_option('cot_authorize_testing')) : ?>
+    <script type="text/javascript" src="https://jstest.authorize.net/v1/Accept.js" charset="utf-8"></script>
+<?php else : ?>
+    <script type="text/javascript" src="https://js.authorize.net/v1/Accept.js" charset="utf-8"></script>
 <?php
+endif;
 get_footer();

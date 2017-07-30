@@ -167,18 +167,152 @@
     </div>
 
     <div class="section">
-      <h3>5. Payment and Contact Information</h3>
+      <h3 class="has-margin-bottom-sm">5. Payment and Contact Information</h3>
 
-      <b-field label="Subscription Holder">
-        <b-input v-model="customer.first_name" placeholder="Your first name..."></b-input>
+      <b-field label="Phone Number">
+        <b-input type="tel" v-model="customer.phone" placeholder="Your phone number..."></b-input>
       </b-field>
 
-      <iframe id="load_payment" name="load_payment">
-      </iframe>
-      <form action="https://test.authorize.net/payment/payment" id="cc-form" target="load_payment" method="post">
-        <input type="hidden" :value="token" name="token" />
-      </form>
-      <button class="button is-primary" @click="activateForm">Checkout</button>
+      <b-field label="Email">
+        <b-input type="email" v-model="customer.email" placeholder="Your email address..."></b-input>
+      </b-field>
+
+      <h4 class="has-margin-top-lg">Billing</h4>
+      <hr class="has-margin-bottom-lg" />
+
+      <b-field>
+        <b-select v-model="customer.billing.salutation">
+          <option value="Mr.">Mr.</option>
+          <option value="Mrs.">Mrs.</option>
+          <option value="Ms.">Ms.</option>
+          <option value="Dr.">Dr.</option>
+          <option value="">None</option>
+        </b-select>
+        <b-input v-model="customer.billing.first_name" placeholder="Your first name..."></b-input>
+        <b-input v-model="customer.billing.last_name" placeholder="Your last name..."></b-input>
+      </b-field>
+
+      <b-field label="Address">
+        <b-input v-model="customer.billing.address" placeholder="Your address..."></b-input>
+      </b-field>
+
+      <b-field label="Address cont.">
+        <b-input v-model="customer.billing.address_2" placeholder="Your address continued..."></b-input>
+      </b-field>
+
+      <div class="columns">
+        <div class="column">
+          <b-field label="City">
+            <b-input placeholder="City..." v-model="customer.billing.city"></b-input>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="State">
+            <b-select placeholder="Select a State..." v-model="customer.billing.state">
+              <option v-for="state in states" :value="state">
+                {{state}}
+              </option>
+            </b-select>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Zip">
+            <b-input placeholder="Zip..." v-model="customer.billing.zip"></b-input>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Country">
+            <b-select placeholder="Select a Country..." v-model="customer.billing.country">
+              <option value="US">US</option>
+              <option value="CA">CA</option>
+            </b-select>
+          </b-field>
+        </div>
+      </div>
+
+      <h4 class="has-margin-top-lg">Shipping</h4>
+      <hr class="has-margin-bottom-lg" />
+
+      <b-switch v-model="billing_shipping_same" class="has-margin-bottom-sm">Shipping same as billing?</b-switch>
+
+      <b-field>
+        <b-select v-model="customer.shipping.salutation" :disabled.bool="billing_shipping_same">
+          <option value="Mr.">Mr.</option>
+          <option value="Mrs.">Mrs.</option>
+          <option value="Ms.">Ms.</option>
+          <option value="Dr.">Dr.</option>
+          <option value="">None</option>
+        </b-select>
+        <b-input v-model="customer.shipping.first_name" placeholder="Your first name..." :disabled.bool="billing_shipping_same"></b-input>
+        <b-input v-model="customer.shipping.last_name" placeholder="Your last name..." :disabled.bool="billing_shipping_same"></b-input>
+      </b-field>
+
+      <b-field label="Address">
+        <b-input v-model="customer.shipping.address" placeholder="Your address..." :disabled.bool="billing_shipping_same"></b-input>
+      </b-field>
+
+      <b-field label="Address cont.">
+        <b-input v-model="customer.shipping.address_2" placeholder="Your address continued..." :disabled.bool="billing_shipping_same"></b-input>
+      </b-field>
+
+      <div class="columns">
+        <div class="column">
+          <b-field label="City">
+            <b-input placeholder="City..." v-model="customer.shipping.city" :disabled.bool="billing_shipping_same"></b-input>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="State">
+            <b-select placeholder="Select a State..." v-model="customer.shipping.state" :disabled.bool="billing_shipping_same">
+              <option v-for="state in states" :value="state">
+                {{state}}
+              </option>
+            </b-select>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Zip">
+            <b-input placeholder="Zip..." v-model="customer.shipping.zip" :disabled.bool="billing_shipping_same"></b-input>
+          </b-field>
+        </div>
+        <div class="column">
+          <b-field label="Country">
+            <b-select placeholder="Select a Country..." v-model="customer.shipping.country" :disabled.bool="billing_shipping_same">
+              <option value="US">US</option>
+              <option value="CA">CA</option>
+            </b-select>
+          </b-field>
+        </div>
+      </div>
+
+      <h4 class="has-margin-top-lg">Payment</h4>
+      <hr class="has-margin-bottom-lg" />
+
+      <div class="box" id="cc-info">
+        <div id="card-image"></div>
+        <div class="columns">
+          <div class="column is-7">
+            <b-input v-model="cc.number" name="number" placeholder="Card number..."></b-input>
+          </div>
+
+          <div class="column is-5">
+            <b-input v-model="cc.full_name" name="name" placeholder="Name on card..."></b-input>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-3">
+            <b-input v-model="cc.exp" name="expiry" placeholder="Expiry date..."></b-input>
+          </div>
+
+          <div class="column is-3">
+            <b-input v-model="cc.cvc" name="cvc" placeholder="CVC..."></b-input>
+          </div>
+
+          <div class="column is-6">
+            <button class="button is-primary" style="display: block;width: 100%;" @click="submitPayment">Pay Now</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -230,8 +364,12 @@
 
 <script>
 import formatMoney from '~Scripts/formatMoney';
+import states from '~Scripts/listOfStates';
 import axios from 'axios';
 import Vue from 'vue';
+
+const Card = require('card');
+
 export default {
   name: 'Subscriptions',
   props: {
@@ -248,7 +386,8 @@ export default {
       type: Boolean,
       default: false
     },
-    fee_amount: Number,
+    fee_amount: String,
+    authorize: Object,
   },
   data() {
     const selected_dates = {};
@@ -258,6 +397,7 @@ export default {
 
     return {
       selected_dates,
+      states,
       isSeatMapModalActive: false,
       isPriceZoneModalActive: false,
       seatMapUrl: null,
@@ -272,6 +412,7 @@ export default {
         phone: null,
         email: null,
         billing: {
+          salutation: 'Mr.',
           first_name: null,
           last_name: null,
           address: null,
@@ -282,6 +423,7 @@ export default {
           country: null,
         },
         shipping: {
+          salutation: 'Mr.',
           first_name: null,
           last_name: null,
           address: null,
@@ -292,31 +434,51 @@ export default {
           country: null,
         }
       },
-      token: null
+      billing_shipping_same: true,
+      payment_nonce: null,
+      cc: {
+        number: null,
+        full_name: null,
+        exp: null,
+        cvc: null
+      }
     }
   },
   methods: {
-    activateForm() {
-      const a = axios.create({
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      a.post('/wp-json/cot/form-token', {
-          cost: String(12),
-          customer: {
-            first_name: 'Joshua',
-            email: 'joshua.r.bartlett@gmail.com'
+    submitPayment() {
+      const authData = {};
+      const cardData = {};
+
+      cardData.cardNumber = this.cc.number;
+      cardData.cardCode = this.cc.cvc;
+      cardData.month = this.cc.exp.trim()
+        .replace(/ /g, '')
+        .split('/')[0];
+      cardData.year = '20' + this.cc.exp.trim()
+        .replace(/ /g, '')
+        .split('/')[1];
+
+      authData.clientKey = this.authorize.client_key;
+      authData.apiLoginID = this.authorize.api_key;
+
+      const secureData = {
+        cardData,
+        authData
+      }
+
+      Accept.dispatchData(secureData, responseHandler);
+
+      function responseHandler(response) {
+        if (response.messages.resultCode === "Error") {
+          for (var i = 0; i < response.messages.message.length; i++) {
+            console.log(response.messages.message[i].code + ": " + response.messages.message[i].text);
           }
-        })
-        .then((response) => {
-          console.log(response.data);
-          this.token = response.data.token;
-          Vue.nextTick(() => {
-            document.getElementById('cc-form')
-              .submit();
-          })
-        })
+          alert("acceptJS library error!")
+        } else {
+          console.log(response.opaqueData.dataDescriptor);
+          console.log(response.opaqueData.dataValue);
+        }
+      }
     },
     activateSeatMapModal(url) {
       this.seatMapUrl = url;
@@ -356,7 +518,21 @@ export default {
     },
     selected_zone() {
       this.total = this.calc_total();
+    },
+    'customer.billing': {
+      deep: true,
+      handler() {
+        if (this.billing_shipping_same) {
+          this.customer.shipping = this.customer.billing;
+        }
+      }
     }
+  },
+  mounted() {
+    const card = new Card({
+      form: '#cc-info',
+      container: '#card-image'
+    })
   }
 }
 </script>
@@ -365,9 +541,10 @@ export default {
 .level-item {
     justify-content: left;
 }
+</style>
 
-iframe {
-    width: 100%;
-    height: 700px;
+<style>
+.jp-card-container {
+  margin-bottom: 1.5rem !important;
 }
 </style>

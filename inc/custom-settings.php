@@ -124,3 +124,10 @@ function get_cot_custom_settings() {
   $obj['newsletter_url'] = get_option('cot_newsletter_url');
   echo json_encode($obj, JSON_HEX_APOS);
 }
+
+function get_cot_authorize_custom_settings() {
+  $obj = array();
+  $obj['api_key'] = get_option('cot_authorize_api_key');
+  $obj['client_key'] = get_option('cot_client_key');
+  return $obj;
+}
