@@ -165,6 +165,21 @@
         </tr>
       </table>
     </div>
+
+    <div class="section">
+      <h3>5. Payment and Contact Information</h3>
+
+      <b-field label="Subscription Holder">
+        <b-input v-model="customer.first_name" placeholder="Your first name..."></b-input>
+      </b-field>
+
+      <iframe id="load_payment" name="load_payment">
+      </iframe>
+      <form action="https://test.authorize.net/payment/payment" id="cc-form" target="load_payment" method="post">
+        <input type="hidden" :value="token" name="token" />
+      </form>
+      <button class="button is-primary" @click="activateForm">Checkout</button>
+    </div>
   </section>
 
   <b-modal :active.sync="isSeatMapModalActive" :width="640">
@@ -215,6 +230,8 @@
 
 <script>
 import formatMoney from '~Scripts/formatMoney';
+import axios from 'axios';
+import Vue from 'vue';
 export default {
   name: 'Subscriptions',
   props: {
@@ -231,7 +248,7 @@ export default {
       type: Boolean,
       default: false
     },
-    fee_amount: Number
+    fee_amount: Number,
   },
   data() {
     const selected_dates = {};
@@ -240,6 +257,7 @@ export default {
     });
 
     return {
+      selected_dates,
       isSeatMapModalActive: false,
       isPriceZoneModalActive: false,
       seatMapUrl: null,
@@ -250,10 +268,56 @@ export default {
       selected_zone: null,
       request: null,
       hear_about: null,
-      selected_dates,
+      customer: {
+        phone: null,
+        email: null,
+        billing: {
+          first_name: null,
+          last_name: null,
+          address: null,
+          address_2: null,
+          city: null,
+          state: null,
+          zip: null,
+          country: null,
+        },
+        shipping: {
+          first_name: null,
+          last_name: null,
+          address: null,
+          address_2: null,
+          city: null,
+          state: null,
+          zip: null,
+          country: null,
+        }
+      },
+      token: null
     }
   },
   methods: {
+    activateForm() {
+      const a = axios.create({
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      a.post('/wp-json/cot/form-token', {
+          cost: String(12),
+          customer: {
+            first_name: 'Joshua',
+            email: 'joshua.r.bartlett@gmail.com'
+          }
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.token = response.data.token;
+          Vue.nextTick(() => {
+            document.getElementById('cc-form')
+              .submit();
+          })
+        })
+    },
     activateSeatMapModal(url) {
       this.seatMapUrl = url;
       this.isSeatMapModalActive = true;
@@ -300,5 +364,10 @@ export default {
 <style lang="scss" scoped>
 .level-item {
     justify-content: left;
+}
+
+iframe {
+    width: 100%;
+    height: 700px;
 }
 </style>

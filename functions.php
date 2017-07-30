@@ -96,6 +96,11 @@ require get_template_directory() . '/inc/remove-image-hardcodes.php';
 require get_template_directory() . '/inc/custom-settings.php';
 
 /**
+ * Authorize.net form
+ */
+require get_template_directory() . '/inc/authorize-form-token.php';
+
+/**
  * Prevent a Google Maps issue in ACF
  */
 function my_acf_init()
