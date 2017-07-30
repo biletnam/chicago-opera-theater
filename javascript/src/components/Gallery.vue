@@ -60,10 +60,9 @@ export default {
 
 <style lang="scss" scoped>@import '~variables';
 .gallery {
-    height: 100%;
-    min-height: 750px;
+    height: 750px;
     @include mobile {
-        min-height: 500px;
+        height: 500px;
     }
 
     .swiper-gallery {

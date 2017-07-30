@@ -2,7 +2,7 @@
 <nav id="navigation" class="nav" role="navigation">
   <div class="nav-left">
     <div class="nav-item">
-      <a href="/"><img :src="image" alt="Chicago Opera Theater Logo" /></a>
+      <a href="/"><img :src="image" alt="Chicago Opera Theater Logo" style="display: block; width: 100%;" /></a>
     </div>
   </div>
   <span :class="{'nav-toggle': true, 'is-active': mobileVisible}" @click="mobileVisible = !mobileVisible">
@@ -16,7 +16,6 @@
       <span v-else class="nav-item control dropdown" :class="{'is-active': isActive(link.url)}">
         <a :href="link.url" class="link-title">{{link.title}}</a>
       </span>
-
 </template>
   </div>
 </nav>
@@ -53,7 +52,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style lang="scss">@import '~variables';
