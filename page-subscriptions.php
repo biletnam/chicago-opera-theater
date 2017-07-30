@@ -18,9 +18,7 @@ get_header(); ?>
   <div class="container">
     <div class="columns">
       <?php while (have_posts()) : the_post(); ?>
-        <article class="column is-8 content">
-          <?php the_content(); ?>
-        </article>
+        <article class="column is-8" id="subscriptions" data='<?php get_acf_subscription_content() ?>'></article>
       <?php endwhile ?>
       <?php get_template_part('template-parts/links-sidebar'); ?>
     </div>
