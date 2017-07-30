@@ -2,7 +2,7 @@
 <nav id="navigation" class="nav" role="navigation">
   <div class="nav-left">
     <div class="nav-item">
-      <a href="/"><img :src="image" alt="Chicago Opera Theater Logo" style="display: block; width: 100%;" /></a>
+      <a href="/"><img :src="image" alt="Chicago Opera Theater Logo" style="display: block; max-width: 200px;" /></a>
     </div>
   </div>
   <span :class="{'nav-toggle': true, 'is-active': mobileVisible}" @click="mobileVisible = !mobileVisible">
@@ -57,11 +57,13 @@ export default {
 <style lang="scss">@import '~variables';
 #navigation {
     background: $navigation-background;
-    height: $navigation-height;
+    @media(min-width: 1100px) {
+        height: $navigation-height;
+    }
 
     .nav-toggle {
         @include tablet {
-             @include hamburger($navigation-height);
+             @include hamburger(3.25rem);
         }
         span {
             background-color: $primary-color;
