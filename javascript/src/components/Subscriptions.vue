@@ -20,7 +20,7 @@
         <div class="level-right">
           <div class="level-item">
             <b-field>
-              <b-select :id="slugify(production.name)" placeholder="Select a date" v-model="selected_dates[String(production.name)]">
+              <b-select :id="slugify(production.name)" placeholder="Select a date" v-model="selected_dates[String(production.name)]" v-validate="'required'" name="selected_dates">
                 <option v-for="date in production.dates" :value="production.name + ' - ' + date.value">
                   {{date.label}}
                 </option>
@@ -45,7 +45,7 @@
         <div class="level-right">
           <div class="level-item">
             <b-field>
-              <b-input id="number-of-seats" type="number" placeholder="0" v-model="number_of_seats" step="1" max="15" min="0"></b-input>
+              <b-input id="number-of-seats" type="number" placeholder="0" v-model="number_of_seats" step="1" max="15" min="0" v-validate="'required'" name="number_of_seats"></b-input>
             </b-field>
           </div>
         </div>
@@ -501,12 +501,11 @@ export default {
       }
 
       function responseHandler(that, response) {
-        console.log(response);
         if (response.messages.resultCode === "Error") {
           for (var i = 0; i < response.messages.message.length; i++) {
             console.log(response.messages.message[i].code + ": " + response.messages.message[i].text);
           }
-          //alert("Oops! It looks like there was an error. You were not charged for this purchase, please contact COT at (312) 704-8414 to complete your order.")
+          alert("Oops! It looks like there was an error. You were not charged for this purchase, please contact COT at (312) 704-8414 to complete your order.")
         } else {
           that.postData(response.opaqueData);
         }
@@ -514,7 +513,6 @@ export default {
       Accept.dispatchData(secureData, responseHandler.bind(null, this));
     },
     postData(data) {
-      console.log(data);
       const a = axios.create({
         headers: {
           'Content-Type': 'application/json'
@@ -542,11 +540,9 @@ export default {
             this.processed = true;
             this.loading = false;
           } else {
-            console.log(result);
-            //alert("Oops! It looks like there was an error. You were not charged for this purchase, please contact COT at (312) 704-8414 to complete your order.");
+            alert("Oops! It looks like there was an error. You were not charged for this purchase, please contact COT at (312) 704-8414 to complete your order.");
           }
         }, (error) => {
-          console.log(error);
           alert("Oops! It looks like there was an error. You were not charged for this purchase, please contact COT at (312) 704-8414 to complete your order.");
         });
     },
@@ -575,6 +571,11 @@ export default {
         return 0.00
       } else {
         return this.selected_zone.value * this.number_of_seats
+      }
+    },
+    selected_dates_validation() {
+      if (this.errors.has('selected_dates')) {
+        return 'is-error';
       }
     }
   },
