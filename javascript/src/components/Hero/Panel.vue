@@ -8,6 +8,7 @@
         <h1 v-if="titles.title" :style="textStyleObject">{{titles.title}}</h1>
         <h2 v-if="titles.subtitle" :style="textStyleObject">{{titles.subtitle}}</h2>
         <h4 v-if="titles.subsubtitle" :style="textStyleObject">{{titles.subsubtitle}}</h4>
+        <div v-if="titles.header_text" :style="textStyleObject" v-html="titles.header_text"></div>
       </div>
       <div class="column" :class="{'has-text-right': !isMobile}">
         <div class="field has-addons">

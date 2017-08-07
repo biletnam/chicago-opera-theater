@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "b12f821ccd750e6c2bd599a18f9974bc",
     "content-hash": "96b5d506f27ec4deed12d3b8b58e8d11",
     "packages": [
         {
@@ -50,7 +51,7 @@
                 "ecommerce",
                 "payment"
             ],
-            "time": "2017-04-25T05:57:41+00:00"
+            "time": "2017-04-25 05:57:41"
         },
         {
             "name": "doctrine/annotations",
@@ -118,7 +119,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2017-02-24T16:22:25+00:00"
+            "time": "2017-02-24 16:22:25"
         },
         {
             "name": "doctrine/instantiator",
@@ -172,7 +173,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14T21:17:01+00:00"
+            "time": "2015-06-14 21:17:01"
         },
         {
             "name": "doctrine/lexer",
@@ -226,7 +227,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09T13:34:57+00:00"
+            "time": "2014-09-09 13:34:57"
         },
         {
             "name": "goetas-webservices/xsd2php-runtime",
@@ -282,7 +283,7 @@
                 "xml",
                 "xsd"
             ],
-            "time": "2017-05-05T14:58:17+00:00"
+            "time": "2017-05-05 14:58:17"
         },
         {
             "name": "jms/metadata",
@@ -333,7 +334,7 @@
                 "xml",
                 "yaml"
             ],
-            "time": "2016-12-05T10:18:33+00:00"
+            "time": "2016-12-05 10:18:33"
         },
         {
             "name": "jms/parser-lib",
@@ -368,7 +369,7 @@
                 "Apache2"
             ],
             "description": "A library for easily creating recursive-descent parsers.",
-            "time": "2012-11-18T18:08:43+00:00"
+            "time": "2012-11-18 18:08:43"
         },
         {
             "name": "jms/serializer",
@@ -451,7 +452,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2017-07-13T11:23:56+00:00"
+            "time": "2017-07-13 11:23:56"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -499,7 +500,7 @@
                 "sequence",
                 "set"
             ],
-            "time": "2015-05-17T12:39:23+00:00"
+            "time": "2015-05-17 12:39:23"
         },
         {
             "name": "phpoption/phpoption",
@@ -549,7 +550,7 @@
                 "php",
                 "type"
             ],
-            "time": "2015-07-25T16:39:46+00:00"
+            "time": "2015-07-25 16:39:46"
         },
         {
             "name": "symfony/yaml",
@@ -604,7 +605,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-15T12:58:50+00:00"
+            "time": "2017-06-15 12:58:50"
         }
     ],
     "packages-dev": [],

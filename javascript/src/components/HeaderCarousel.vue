@@ -45,6 +45,7 @@ export default {
         title: panel.title,
         subtitle: panel.subtitle,
         subsubtitle: panel.subsubtitle,
+        header_text: panel.header_text,
       }
     }
   }

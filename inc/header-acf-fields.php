@@ -61,6 +61,7 @@ function get_acf_header_titles()
       'title' => get_field('title', $post_id),
       'subtitle' => get_field('subtitle', $post_id),
       'subsubtitle' => get_field('subsubtitle', $post_id),
+      'header_text' => get_field('header_text', $post_id)
     );
 
     echo json_encode($obj, JSON_HEX_APOS);
